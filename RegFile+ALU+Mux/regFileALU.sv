@@ -1,20 +1,3 @@
-//Creating ALU Mux
-
-module ALUMux # (
-    parameter Data_Width = 32,
-
-) (
-    //Interface signals
-    input logic [Data_Width-1:0] regOp2; //Output if mux select is 0
-    input logic [Data_Width-1:0] ImmOp; //Output if mux select is 1
-    input ALUSrc; //mux select
-    output logic [Data_Width-1:0] ALUOp2; //2nd output of ALU
-);
-
-ALUOp2 = (ALUsrc) ? regOp2:ImmOp;
-
-endmodule
-
 //Creating ALU module
 module alu # (
     parameter Address_Width = 5,
