@@ -16,11 +16,11 @@ module alu # (
 
 always_comb begin //ALU implements different arithmetic/logic based on opcode input
     case (ALU_ctrl)
-        10 b'0000010011: //Add Immediate:
+        10 b'0000010011: //Add Immediate: //Change to 1 b'0
             ALUout = op1 + op2;
-        10 b'0011100011: //bne instruction:
+        10 b'0011100011: //bne instruction: //Change to 1 b'1
             if(op1!=op2) ALUout = //label which is combination of different bits from instruction, but not sure whether ALU assigns this.
-        default: $display("Instruction error.");
+        default: $display("Instruction not detected.");
     endcase
 end
 endmodule
