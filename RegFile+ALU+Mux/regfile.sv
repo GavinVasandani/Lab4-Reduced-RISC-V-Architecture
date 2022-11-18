@@ -12,7 +12,7 @@ module regFile # (
     input logic [Address_Width-1:0] rs2, //rs2 is 2nd source reg, arithmetic input
     input logic [Address_Width-1:0] rd, //rd is destination reg to store arithmetic output
     input logic en, //Enable to determine whether we can write to register file or not
-    input logic [Data_Width-1:0] din; //Data in which takes in ALU output to write to register rd. Registers hold 32 bit word so din is 32 bits
+    input logic [Data_Width-1:0] din, //Data in which takes in ALU output to write to register rd. Registers hold 32 bit word so din is 32 bits
     output logic [Data_Width-1:0] rd1, //32 bit word that is stored in register that is outputted to ALU for operation
     output logic [Data_Width-1:0] rd2, //32 bit word that is stored in register that is outputted to ALU for operation
     output logic [Data_Width-1:0] a0; //Outputs data stored in a0 register

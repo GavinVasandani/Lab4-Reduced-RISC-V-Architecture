@@ -6,9 +6,9 @@ module ALUMux # (
 
 ) (
     //Interface signals
-    input logic [Data_Width-1:0] regOp2; //Output if mux select is 0
-    input logic [Data_Width-1:0] ImmOp; //Output if mux select is 1
-    input logic ALUSrc; //mux select
+    input logic [Data_Width-1:0] regOp2, //Output if mux select is 0
+    input logic [Data_Width-1:0] ImmOp, //Output if mux select is 1
+    input logic ALUSrc, //mux select
     output logic [Data_Width-1:0] ALUOp2; //2nd output of ALU
 );
 
