@@ -24,4 +24,4 @@ logic [4:0] rs2;
 logic [4:0] rd;
 ```
 
-4. 
+4. all 
