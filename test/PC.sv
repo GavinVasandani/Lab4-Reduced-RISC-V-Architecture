@@ -11,7 +11,7 @@ module PC #(
 
     logic [ADDRESS_WIDTH-1:0] branch_PC;
     logic [ADDRESS_WIDTH-1:0] inc_PC;
-    logic [ADDRESS_WIDTH-1:0] next_PC;
+    // logic [ADDRESS_WIDTH-1:0] next_PC;
     logic [ADDRESS_WIDTH-1:0] PC;
 
 assign branch_PC = PC + ImmOp;

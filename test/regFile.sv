@@ -1,9 +1,10 @@
 //Register file is just special type of RAM component so copy RAM template code:
 
 module regFile # (
-    parameter NumberOfReg = 32,
-              Address_Width = 5, //32 registers so address size is 5 bits
-              Data_Width = 32 //32-bit data
+    parameter 
+            // NumberOfReg = 32,
+            Address_Width = 5, //32 registers so address size is 5 bits
+            Data_Width = 32 //32-bit data
 )(
     //Interface signals:
     //Assign input and output variables and their size:
@@ -33,9 +34,11 @@ always_ff @ (posedge clk) begin
     //At rising edge do:
     rd1 <= regFile_array [rs1];
     rd2 <= regFile_array [rs2];
-    if (en)     regFile_array[rd] = din; //so at rising edge also the din is stored at register given by address rd
+    if (en)     regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd
     
 end
+
+assign a0 = regFile_array[5'd10];
 
 endmodule
 //So this is all code for the regfile

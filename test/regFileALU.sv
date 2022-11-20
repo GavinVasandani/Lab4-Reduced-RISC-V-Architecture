@@ -1,8 +1,9 @@
 //Creating ALU module
 module regFileALU# (
-    parameter Address_Width = 5,
-              //ALU_Instruction_Width = 1;
-              Data_Width = 32
+    parameter 
+            // Address_Width = 5,
+            //ALU_Instruction_Width = 1;
+            Data_Width = 32
 ) (
     //Interface signals
     input logic [Data_Width-1:0] op1, //input op1 into ALU which is output content from a register

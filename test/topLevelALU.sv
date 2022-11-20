@@ -1,5 +1,6 @@
 module topLevelALU# (
-    parameter NumberOfReg = 32,
+    parameter 
+              // NumberOfReg = 32,
               Address_Width = 5, //32 registers so address size is 5 bits
               Data_Width = 32
               //ALU_Instruction_Width = 10;
@@ -28,7 +29,7 @@ logic [Data_Width-1:0] ALUOp2;
 
 //Initializing objects of the different modules and linking them
 regFile regFile1 (clk, rs1, rs2, rd, en, din, rd1, rd2, a0);
-regFileMux mux1 (rd2, ImmOp, ALUsrc, ALUOp2);
+regFileMux mux1 (rd2, ImmOp, ALUSrc, ALUOp2);
 regFileALU alu1 (rd1, ALUOp2, ALU_ctrl, ALUout, eq);
 
 endmodule

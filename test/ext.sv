@@ -1,6 +1,8 @@
 module ext(
     input clk,
-    input logic [31:0] inst,
+    // input logic [31:0] inst,
+    input logic [11:0] imm_imm, // imm value when the instruction format is immediate
+    input logic [11:0] imm_branch, // imm value when the instruction format is branch
     input logic ImmSrc,
     output logic [31:0] ImmOp
 );
@@ -9,11 +11,11 @@ module ext(
 
     always_ff @(posedge clk)
         if (ImmSrc) 
-        imm <= inst[31:20];
+        imm <= imm_imm;
 
         else 
-        imm <= {inst[31],inst[7],inst[30:25],inst[11:8]};
-    
+        imm <= imm_branch;
+
 
 
     assign ImmOp = {{20{imm[11]}}, imm[11:0]};
