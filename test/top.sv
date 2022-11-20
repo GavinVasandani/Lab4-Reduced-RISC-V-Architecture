@@ -1,5 +1,5 @@
 module top#(
-    parameter ADDRESS_WIDTH = 8,
+    parameter ADDRESS_WIDTH = 32,
     DATA_WIDTH = 32
 )(
     input logic             clk,
@@ -7,7 +7,7 @@ module top#(
     //don't need write function yet, so used this as input
     input logic             write_en,
 
-    output logic            a0
+    output logic [ADDRESS_WIDTH-1:0] a0
 
 );
 
@@ -20,14 +20,14 @@ module top#(
     // logic write_en,
     logic [DATA_WIDTH-1:0] write_data;
     logic ALU_src;
-    logic ALU_ctrl;
+    logic [2:0] ALU_ctrl;
     logic EQ;
     logic [DATA_WIDTH-1:0] ImmOp;
     logic ImmSrc;
 
     assign rs1 = PC_instr[19:15];
     assign rs2 = PC_instr[24:20];
-    
+    assign rd  = PC_instr[24:20];
 
 PC myPC(
     .ImmOp  (ImmOp),

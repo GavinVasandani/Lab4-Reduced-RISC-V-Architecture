@@ -1,5 +1,5 @@
 module rom #(
-    parameter ADDRESS_WIDTH = 8, // loaded 256 instrcutions in rom initially, can increase this, modify mem accordingly.
+    parameter ADDRESS_WIDTH = 32, // loaded 256 instrcutions in rom initially, can increase this, modify mem accordingly.
     DATA_WIDTH = 32 // data width of each instruction has to be 32 to accommodate all possible instructions
 )(
     input logic [ADDRESS_WIDTH-1:0] PC,

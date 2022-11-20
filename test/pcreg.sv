@@ -1,5 +1,5 @@
 module pcreg #(
-    parameter ADDRESS_WIDTH = 8
+    parameter ADDRESS_WIDTH = 32
 )(
     // inputs and corresponding outputs from left to right
     input logic [ADDRESS_WIDTH-1:0] branch_PC,

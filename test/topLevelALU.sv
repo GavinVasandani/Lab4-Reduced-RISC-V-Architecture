@@ -14,7 +14,7 @@ module topLevelALU# (
     input logic ALUSrc,
     input logic [Data_Width-1:0] ImmOp,
     //input logic [ALU_Instruction_Width-1:0] ALU_ctrl;
-    input logic ALU_ctrl,
+    input logic [2:0] ALU_ctrl,
 //Outputs
     output logic [Data_Width-1:0] ALUout, //output of ALU is same size as ALU inputs
     output logic eq,
@@ -24,7 +24,7 @@ module topLevelALU# (
 //Variable which acts in the middle:
 logic [Data_Width-1:0] rd1;
 logic [Data_Width-1:0] rd2;
-logic [Data_Width-1:0] ALUop2;
+logic [Data_Width-1:0] ALUOp2;
 
 //Initializing objects of the different modules and linking them
 regFile regFile1 (clk, rs1, rs2, rd, en, din, rd1, rd2, a0);

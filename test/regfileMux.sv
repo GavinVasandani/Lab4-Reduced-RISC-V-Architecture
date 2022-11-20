@@ -1,7 +1,7 @@
 //Creating ALU Mux
 //Now create top level design which connects regfile, mux, alu with wires
 
-module regfileMux# (
+module regFileMux# (
     parameter Data_Width = 32
 
 ) (

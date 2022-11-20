@@ -13,7 +13,7 @@ module control(
 always_comb begin
 
     case(instr[6:0])
-        7'b0010011: begin ALUctrl = instr[14:12];
+        7'b0010011: begin ALUctrl = 3'b000;
                         //   RegWrite = 1;
                           ALUsrc = 1;
                           ImmSrc = 1;
@@ -21,7 +21,7 @@ always_comb begin
         end 
 
     
-        7'b1100011: begin 
+        7'b1100011: begin ALUctrl = 3'b111;
             // RegWrite = 0;
                           ALUsrc = 0;
                           ImmSrc = 0;

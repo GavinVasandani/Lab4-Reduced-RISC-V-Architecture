@@ -1,5 +1,5 @@
 module PC #(
-        parameter ADDRESS_WIDTH = 8,
+        parameter ADDRESS_WIDTH = 32,
     DATA_WIDTH = 32
 )(
   input logic [ADDRESS_WIDTH-1:0] ImmOp,
@@ -15,7 +15,7 @@ module PC #(
     logic [ADDRESS_WIDTH-1:0] PC;
 
 assign branch_PC = PC + ImmOp;
-assign inc_PC = PC + 8'h4;
+assign inc_PC = PC + 32'h4;
 
 pcreg myPCreg (
   .branch_PC(branch_PC),
