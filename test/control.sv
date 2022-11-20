@@ -26,15 +26,12 @@ always_comb begin
                           ALUsrc = 0;
                           ImmSrc = 0;
                           PCsrc = ~EQ;
-<<<<<<< HEAD
         end
 
         default: begin
             ALUsrc = 0;
             ImmSrc = 0;
             PCsrc = 0;
-=======
->>>>>>> b89e6334c3f89e060bdf614153a69d66e0e54667
         end
 
     endcase
