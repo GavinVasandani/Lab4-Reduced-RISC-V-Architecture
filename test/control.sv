@@ -25,7 +25,7 @@ always_comb begin
             // RegWrite = 0;
                           ALUsrc = 0;
                           ImmSrc = 0;
-                          PCsrc = 1;
+                          PCsrc = ~EQ;
         end
 
     endcase
