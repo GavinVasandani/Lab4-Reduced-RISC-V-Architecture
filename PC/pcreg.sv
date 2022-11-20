@@ -7,7 +7,7 @@ module pcreg #(
     input logic                     PCsrc,
     input logic                     clk,
     input logic                     rst,
-    output logic                     PC,
+    output logic                     PC
 );
 
 // intermediate output from the mux block, should be decided based on the value of PCsrc

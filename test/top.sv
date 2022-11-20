@@ -7,35 +7,34 @@ module top#(
     //don't need write function yet, so used this as input
     input logic             write_en,
 
-    output logic            a0,
+    output logic            a0
 
 );
 
-    logic [ADDRESS_WIDTH-1:0] PC_instr,
-    logic PC_src,
-    logic [4:0] rs1,
-    logic [4:0] rs2,
-    logic [4:0] rd,
-    // logic write_en,
-    logic [DATA_WIDTH-1:0] write_data ,
-    logic ALU_src,
-    logic ALU_ctrl,
-    logic EQ,
-    logic a0,
-    logic [DATA_WIDTH-1:0] ImmOp,
-    logic ImmSrc,
+    logic [DATA_WIDTH-1:0] PC_instr;
 
-    assign rs1 = PC_instr[19:15]
-    assign rs2 = PC_instr[24:20]
+    logic PC_src;
+    logic [4:0] rs1;
+    logic [4:0] rs2;
+    logic [4:0] rd;
+    // logic write_en,
+    logic [DATA_WIDTH-1:0] write_data;
+    logic ALU_src;
+    logic ALU_ctrl;
+    logic EQ;
+    logic [DATA_WIDTH-1:0] ImmOp;
+    logic ImmSrc;
+
+    assign rs1 = PC_instr[19:15];
+    assign rs2 = PC_instr[24:20];
     
 
 PC myPC(
     .ImmOp  (ImmOp),
-    .PCsrc  (Pc_src)
+    .PCsrc  (PC_src),
     .clk    (clk),
     .rst    (rst),
-
-    .inst   (PC_instr),
+    .instr   (PC_instr)
 );
 
 topLevelALU ALU(
@@ -46,29 +45,28 @@ topLevelALU ALU(
     .en     (write_en),
     .din    (write_data),
     .ALUSrc (ALU_src),
+    .ImmOp  (ImmOp),
     .ALU_ctrl (ALU_ctrl),
-
     .ALUout (write_data),
     .eq     (EQ),
-    .a0     (a0),
+    .a0     (a0)
 );
 
 ext sign_extend(
     .clk    (clk),
     .inst   (PC_instr),
     .ImmSrc (ImmSrc),
-
-    .ImmOp  (ImmOp),
+    .ImmOp  (ImmOp)
 );
 
-control_unit control_unit(
+control control_unit(
     .EQ     (EQ),
     .instr  (PC_instr),
-
+    // .RegWrite   (write_en),
     .ALUctrl    (ALU_ctrl),
     .ALUsrc     (ALU_src),
     .ImmSrc     (ImmSrc),
-    .Pcsrc      (PC_src),
+    .PCsrc      (PC_src)
 );
 
 

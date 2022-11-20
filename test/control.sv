@@ -2,7 +2,7 @@ module control(
     input logic         EQ,
     input logic[31:0]   instr,
 
-    // output logic RegWrite,
+    // output logic RegWrite
     output logic[2:0] ALUctrl,
     output logic ALUsrc,
     output logic ImmSrc,
