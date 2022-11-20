@@ -16,7 +16,9 @@ VL_INLINE_OPT void Vcontrol___024root___sequent__TOP__0(Vcontrol___024root* vlSe
     vlSelf->top__DOT__ALU__DOT__rd2 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
         [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0x14U))];
     if (vlSelf->write_en) {
-        vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array[vlSelf->top__DOT__rd] 
+        vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array[(0x1fU 
+                                                                  & (vlSelf->top__DOT__PC_instr 
+                                                                     >> 0x14U))] 
             = vlSelf->top__DOT__write_data;
     }
     vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
@@ -62,16 +64,14 @@ VL_INLINE_OPT void Vcontrol___024root___sequent__TOP__0(Vcontrol___024root* vlSe
         = ((IData)(vlSelf->top__DOT__PC_src) ? (vlSelf->top__DOT__myPC__DOT__PC 
                                                 + vlSelf->top__DOT__ImmOp)
             : ((IData)(4U) + vlSelf->top__DOT__myPC__DOT__PC));
-    if ((1U & (IData)(vlSelf->top__DOT__ALU_ctrl))) {
-        if (VL_LIKELY((1U & (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
-            vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
-                                    == vlSelf->top__DOT__ALU__DOT__ALUOp2);
-        } else {
-            VL_WRITEF("Instruction not detected.\n");
-        }
-    } else {
+    if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
         vlSelf->top__DOT__write_data = (vlSelf->top__DOT__ALU__DOT__rd1 
                                         + vlSelf->top__DOT__ALU__DOT__ALUOp2);
+    } else if (VL_LIKELY((7U == (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
+        vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
+                                == vlSelf->top__DOT__ALU__DOT__ALUOp2);
+    } else {
+        VL_WRITEF("Instruction not detected.\n");
     }
 }
 

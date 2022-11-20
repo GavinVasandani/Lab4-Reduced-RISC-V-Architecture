@@ -17,7 +17,6 @@ class Vcontrol___024root final : public VerilatedModule {
     VL_IN8(rst,0,0);
     VL_IN8(write_en,0,0);
     CData/*0:0*/ top__DOT__PC_src;
-    CData/*4:0*/ top__DOT__rd;
     CData/*0:0*/ top__DOT__ALU_src;
     CData/*2:0*/ top__DOT__ALU_ctrl;
     CData/*0:0*/ top__DOT__EQ;

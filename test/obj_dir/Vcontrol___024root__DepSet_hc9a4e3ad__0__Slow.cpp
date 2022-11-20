@@ -59,16 +59,14 @@ VL_ATTR_COLD void Vcontrol___024root___settle__TOP__0(Vcontrol___024root* vlSelf
         = ((IData)(vlSelf->top__DOT__PC_src) ? (vlSelf->top__DOT__myPC__DOT__PC 
                                                 + vlSelf->top__DOT__ImmOp)
             : ((IData)(4U) + vlSelf->top__DOT__myPC__DOT__PC));
-    if ((1U & (IData)(vlSelf->top__DOT__ALU_ctrl))) {
-        if (VL_LIKELY((1U & (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
-            vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
-                                    == vlSelf->top__DOT__ALU__DOT__ALUOp2);
-        } else {
-            VL_WRITEF("Instruction not detected.\n");
-        }
-    } else {
+    if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
         vlSelf->top__DOT__write_data = (vlSelf->top__DOT__ALU__DOT__rd1 
                                         + vlSelf->top__DOT__ALU__DOT__ALUOp2);
+    } else if (VL_LIKELY((7U == (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
+        vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
+                                == vlSelf->top__DOT__ALU__DOT__ALUOp2);
+    } else {
+        VL_WRITEF("Instruction not detected.\n");
     }
 }
 
@@ -110,7 +108,6 @@ VL_ATTR_COLD void Vcontrol___024root___ctor_var_reset(Vcontrol___024root* vlSelf
     vlSelf->a0 = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__PC_instr = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__PC_src = VL_RAND_RESET_I(1);
-    vlSelf->top__DOT__rd = VL_RAND_RESET_I(5);
     vlSelf->top__DOT__write_data = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__ALU_src = VL_RAND_RESET_I(1);
     vlSelf->top__DOT__ALU_ctrl = VL_RAND_RESET_I(3);
