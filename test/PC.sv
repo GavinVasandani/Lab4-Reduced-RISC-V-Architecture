@@ -1,30 +1,26 @@
 module PC #(
-        parameter ADDRESS_WIDTH = 32,
+        parameter ADDRESS_WIDTH = 8,
+        IMMOP_WIDTH = 32, // just a workaround at the moment, will work fine for now but need to figure out why memory alloation isn't taking place accurately.
     DATA_WIDTH = 32
 )(
-  input logic [ADDRESS_WIDTH-1:0] ImmOp,
+  input logic [IMMOP_WIDTH-1:0] ImmOp,
   input logic                     PCsrc,
   input logic                     clk,
   input logic                     rst,
   output logic [DATA_WIDTH-1:0]   instr
 );
 
-    logic [ADDRESS_WIDTH-1:0] branch_PC;
-    logic [ADDRESS_WIDTH-1:0] inc_PC;
-    // logic [ADDRESS_WIDTH-1:0] next_PC;
-    logic [ADDRESS_WIDTH-1:0] PC;
+  logic [ADDRESS_WIDTH-1:0] PC;
+  logic [ADDRESS_WIDTH-1:0] ImmOp_intermed;
 
-assign branch_PC = PC + ImmOp;
-assign inc_PC = PC + 32'h4;
+  assign ImmOp_intermed = ImmOp[ADDRESS_WIDTH-1:0];
 
 pcreg myPCreg (
-  .branch_PC(branch_PC),
-  .inc_PC(inc_PC),
+  .ImmOp(ImmOp_intermed),
+  .PC(PC),
   .PCsrc(PCsrc),
   .clk (clk),
-  .rst (rst),
-  .PC(PC)
-  // .next_PC(next_PC)
+  .rst (rst)
 );
 
 rom myRom (

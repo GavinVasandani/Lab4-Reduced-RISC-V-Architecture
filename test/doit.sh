@@ -6,4 +6,4 @@ verilator -Wall --cc --trace  top.sv    --exe lab4_tb.cpp
 
 make -j -C obj_dir/ -f Vtop.mk Vtop
 
-# obj_dir/Vf1_fsm
+obj_dir/Vtop

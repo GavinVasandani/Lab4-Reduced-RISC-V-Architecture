@@ -15,10 +15,7 @@ int main(int argc, char **argv, char **env) {
     top->trace(tfp, 99);
     tfp->open("top.vcd");
 
-
-
-    top->inst = 0b11111110000000000001111110000000;
-    top->ImmSrc = 0;
+    top->rst = 0;
 
     for (i=0; i<18; i++){
 
@@ -27,11 +24,6 @@ int main(int argc, char **argv, char **env) {
             top->clk = !top->clk;
             top->eval();
         }   
-
-        // if top->clk == 5:
-
-
-
 
 
         if (Verilated::gotFinish()) 

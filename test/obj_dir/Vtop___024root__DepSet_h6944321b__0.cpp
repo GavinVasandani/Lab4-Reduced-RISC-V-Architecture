@@ -29,7 +29,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ALU__DOT__rd2 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
         [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0x14U))];
     vlSelf->top__DOT__myPC__DOT__PC = ((IData)(vlSelf->rst)
-                                        ? 0U : vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC);
+                                        ? 0U : (IData)(vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC));
     if (__Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0) {
         vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array[__Vdlyvdim0__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0] 
             = __Vdlyvval__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0;
@@ -61,7 +61,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
                                                   >> 0xbU)))) 
                                 << 0xcU) | (IData)(vlSelf->top__DOT__sign_extend__DOT__imm));
     vlSelf->top__DOT__PC_instr = vlSelf->top__DOT__myPC__DOT__myRom__DOT__rom_array
-        [(1U & ((IData)(1U) + vlSelf->top__DOT__myPC__DOT__PC))];
+        [vlSelf->top__DOT__myPC__DOT__PC];
     if ((0x13U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
         vlSelf->top__DOT__ALU_ctrl = 0U;
         vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ALU__DOT__rd2;
@@ -82,11 +82,12 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
         VL_WRITEF("Instruction not detected.\n");
     }
     vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC 
-        = (((0x13U != (0x7fU & vlSelf->top__DOT__PC_instr)) 
-            & ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr)) 
-               & (~ (IData)(vlSelf->top__DOT__EQ))))
-            ? (vlSelf->top__DOT__myPC__DOT__PC + vlSelf->top__DOT__ImmOp)
-            : ((IData)(4U) + vlSelf->top__DOT__myPC__DOT__PC));
+        = (0xffU & (((0x13U != (0x7fU & vlSelf->top__DOT__PC_instr)) 
+                     & ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr)) 
+                        & (~ (IData)(vlSelf->top__DOT__EQ))))
+                     ? ((IData)(vlSelf->top__DOT__myPC__DOT__PC) 
+                        + vlSelf->top__DOT__ImmOp) : 
+                    ((IData)(4U) + (IData)(vlSelf->top__DOT__myPC__DOT__PC))));
 }
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {

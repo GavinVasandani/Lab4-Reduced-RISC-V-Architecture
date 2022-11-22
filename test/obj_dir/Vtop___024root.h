@@ -18,6 +18,8 @@ class Vtop___024root final : public VerilatedModule {
     VL_IN8(write_en,0,0);
     CData/*2:0*/ top__DOT__ALU_ctrl;
     CData/*0:0*/ top__DOT__EQ;
+    CData/*7:0*/ top__DOT__myPC__DOT__PC;
+    CData/*7:0*/ top__DOT__myPC__DOT__myPCreg__DOT__next_PC;
     CData/*0:0*/ __Vclklast__TOP__clk;
     SData/*11:0*/ top__DOT__sign_extend__DOT__imm;
     VL_OUT(trash,31,0);
@@ -25,12 +27,10 @@ class Vtop___024root final : public VerilatedModule {
     IData/*31:0*/ top__DOT__PC_instr;
     IData/*31:0*/ top__DOT__write_data;
     IData/*31:0*/ top__DOT__ImmOp;
-    IData/*31:0*/ top__DOT__myPC__DOT__PC;
-    IData/*31:0*/ top__DOT__myPC__DOT__myPCreg__DOT__next_PC;
     IData/*31:0*/ top__DOT__ALU__DOT__rd1;
     IData/*31:0*/ top__DOT__ALU__DOT__rd2;
     IData/*31:0*/ top__DOT__ALU__DOT__ALUOp2;
-    VlUnpacked<IData/*31:0*/, 2> top__DOT__myPC__DOT__myRom__DOT__rom_array;
+    VlUnpacked<IData/*31:0*/, 256> top__DOT__myPC__DOT__myRom__DOT__rom_array;
     VlUnpacked<IData/*31:0*/, 32> top__DOT__ALU__DOT__regFile1__DOT__regFile_array;
     VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
