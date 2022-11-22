@@ -1,8 +1,8 @@
 instructions = [0xFF00313,  0x513,  0x593,  0x58513,  0x158593,  0xFE659CE3,  0xFE0308E3]
 
-#the above list can be modified to generate the rom
+# the above list can be modified to generate the rom
 
-#uncomment the code below to test, I tested and this works.
+# uncomment the code below to test, I tested and this works.
 
 # with open('instructions.mem', 'w') as f:
 #     for i in range(2**8):
