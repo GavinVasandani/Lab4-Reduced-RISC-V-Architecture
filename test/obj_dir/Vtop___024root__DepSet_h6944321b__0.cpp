@@ -16,7 +16,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     CData/*0:0*/ __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0;
     // Body
     __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 = 0U;
-    if (vlSelf->write_en) {
+    if (vlSelf->top__DOT__write_en) {
         __Vdlyvval__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 
             = vlSelf->top__DOT__write_data;
         __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 = 1U;
@@ -36,51 +36,57 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     }
     vlSelf->a0 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
         [0xaU];
-    vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
-                                               & ((0x13U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlSelf->top__DOT__PC_instr))
-                                                   ? 
-                                                  (vlSelf->top__DOT__PC_instr 
-                                                   >> 0x14U)
-                                                   : 
-                                                  ((0x800U 
-                                                    & (vlSelf->top__DOT__PC_instr 
-                                                       >> 0x14U)) 
-                                                   | ((0x400U 
+    vlSelf->top__DOT__PC_instr = vlSelf->top__DOT__myPC__DOT__myRom__DOT__rom_array
+        [vlSelf->top__DOT__myPC__DOT__PC];
+    vlSelf->trash = vlSelf->top__DOT__PC_instr;
+    if ((0x13U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
+        vlSelf->alusrc = 1U;
+        vlSelf->top__DOT__write_en = 1U;
+        vlSelf->top__DOT__ALU_ctrl = 0U;
+        vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
+                                                   & (vlSelf->top__DOT__PC_instr 
+                                                      >> 0x14U));
+    } else {
+        vlSelf->alusrc = 0U;
+        if ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
+            vlSelf->top__DOT__write_en = 0U;
+            vlSelf->top__DOT__ALU_ctrl = 7U;
+        }
+        vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
+                                                   & ((0x800U 
                                                        & (vlSelf->top__DOT__PC_instr 
-                                                          << 3U)) 
-                                                      | ((0x3f0U 
+                                                          >> 0x14U)) 
+                                                      | ((0x400U 
                                                           & (vlSelf->top__DOT__PC_instr 
-                                                             >> 0x15U)) 
-                                                         | (0xfU 
-                                                            & (vlSelf->top__DOT__PC_instr 
-                                                               >> 8U)))))));
+                                                             << 3U)) 
+                                                         | ((0x3f0U 
+                                                             & (vlSelf->top__DOT__PC_instr 
+                                                                >> 0x15U)) 
+                                                            | (0xfU 
+                                                               & (vlSelf->top__DOT__PC_instr 
+                                                                  >> 8U))))));
+    }
     vlSelf->top__DOT__ImmOp = (((- (IData)((1U & ((IData)(vlSelf->top__DOT__sign_extend__DOT__imm) 
                                                   >> 0xbU)))) 
                                 << 0xcU) | (IData)(vlSelf->top__DOT__sign_extend__DOT__imm));
-    vlSelf->top__DOT__PC_instr = vlSelf->top__DOT__myPC__DOT__myRom__DOT__rom_array
-        [vlSelf->top__DOT__myPC__DOT__PC];
-    if ((0x13U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
-        vlSelf->top__DOT__ALU_ctrl = 0U;
-        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ALU__DOT__rd2;
-    } else {
-        if ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
-            vlSelf->top__DOT__ALU_ctrl = 7U;
-        }
-        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ImmOp;
-    }
-    vlSelf->trash = vlSelf->top__DOT__PC_instr;
+    vlSelf->top__DOT__ALU__DOT__ALUOp2 = ((0x13U == 
+                                           (0x7fU & vlSelf->top__DOT__PC_instr))
+                                           ? vlSelf->top__DOT__ImmOp
+                                           : vlSelf->top__DOT__ALU__DOT__rd2);
+    vlSelf->wr_en = vlSelf->top__DOT__write_en;
+    vlSelf->ctrlalu = vlSelf->top__DOT__ALU_ctrl;
+    vlSelf->extout = vlSelf->top__DOT__ImmOp;
     if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
-        vlSelf->top__DOT__write_data = (vlSelf->top__DOT__ALU__DOT__rd1 
-                                        + vlSelf->top__DOT__ALU__DOT__ALUOp2);
+        vlSelf->top__DOT__ALUout = (vlSelf->top__DOT__ALU__DOT__rd1 
+                                    + vlSelf->top__DOT__ALU__DOT__ALUOp2);
     } else if (VL_LIKELY((7U == (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
         vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
                                 == vlSelf->top__DOT__ALU__DOT__ALUOp2);
     } else {
         VL_WRITEF("Instruction not detected.\n");
     }
+    vlSelf->aluout = vlSelf->top__DOT__ALUout;
+    vlSelf->Eq = vlSelf->top__DOT__EQ;
     vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC 
         = (0xffU & (((0x13U != (0x7fU & vlSelf->top__DOT__PC_instr)) 
                      & ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr)) 
@@ -113,7 +119,5 @@ void Vtop___024root___eval_debug_assertions(Vtop___024root* vlSelf) {
         Verilated::overWidthError("clk");}
     if (VL_UNLIKELY((vlSelf->rst & 0xfeU))) {
         Verilated::overWidthError("rst");}
-    if (VL_UNLIKELY((vlSelf->write_en & 0xfeU))) {
-        Verilated::overWidthError("write_en");}
 }
 #endif  // VL_DEBUG

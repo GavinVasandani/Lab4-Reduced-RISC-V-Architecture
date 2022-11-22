@@ -15,7 +15,11 @@ class Vtop___024root final : public VerilatedModule {
     // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
-    VL_IN8(write_en,0,0);
+    VL_OUT8(wr_en,0,0);
+    VL_OUT8(Eq,0,0);
+    VL_OUT8(alusrc,0,0);
+    VL_OUT8(ctrlalu,2,0);
+    CData/*0:0*/ top__DOT__write_en;
     CData/*2:0*/ top__DOT__ALU_ctrl;
     CData/*0:0*/ top__DOT__EQ;
     CData/*7:0*/ top__DOT__myPC__DOT__PC;
@@ -24,9 +28,12 @@ class Vtop___024root final : public VerilatedModule {
     SData/*11:0*/ top__DOT__sign_extend__DOT__imm;
     VL_OUT(trash,31,0);
     VL_OUT(a0,31,0);
+    VL_OUT(extout,31,0);
+    VL_OUT(aluout,31,0);
     IData/*31:0*/ top__DOT__PC_instr;
     IData/*31:0*/ top__DOT__write_data;
     IData/*31:0*/ top__DOT__ImmOp;
+    IData/*31:0*/ top__DOT__ALUout;
     IData/*31:0*/ top__DOT__ALU__DOT__rd1;
     IData/*31:0*/ top__DOT__ALU__DOT__rd2;
     IData/*31:0*/ top__DOT__ALU__DOT__ALUOp2;

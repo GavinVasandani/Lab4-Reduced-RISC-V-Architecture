@@ -11,14 +11,14 @@ VL_ATTR_COLD void VPC_top___024root___initial__TOP__0(VPC_top___024root* vlSelf)
     VPC_top__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    VPC_top___024root___initial__TOP__0\n"); );
     // Init
-    VlWide<4>/*127:0*/ __Vtemp_he5f77a3e__0;
+    VlWide<4>/*127:0*/ __Vtemp_he8d6983c__0;
     // Body
     VL_WRITEF("Loading rom.\n");
-    __Vtemp_he5f77a3e__0[0U] = 0x2e6d656dU;
-    __Vtemp_he5f77a3e__0[1U] = 0x696f6e73U;
-    __Vtemp_he5f77a3e__0[2U] = 0x72756374U;
-    __Vtemp_he5f77a3e__0[3U] = 0x696e7374U;
-    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(4, __Vtemp_he5f77a3e__0)
+    __Vtemp_he8d6983c__0[0U] = 0x2e6d656dU;
+    __Vtemp_he8d6983c__0[1U] = 0x696f6e73U;
+    __Vtemp_he8d6983c__0[2U] = 0x72756374U;
+    __Vtemp_he8d6983c__0[3U] = 0x696e7374U;
+    VL_READMEM_N(true, 32, 256, 0, VL_CVT_PACK_STR_NW(4, __Vtemp_he8d6983c__0)
                  ,  &(vlSelf->PC_top__DOT__myRom__DOT__rom_array)
                  , 0, ~0ULL);
     VL_WRITEF("Rom successfully loaded.\n");
