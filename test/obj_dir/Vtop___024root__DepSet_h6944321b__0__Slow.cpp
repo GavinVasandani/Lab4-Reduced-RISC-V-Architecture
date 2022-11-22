@@ -78,7 +78,7 @@ VL_ATTR_COLD void Vtop___024root___settle__TOP__0(Vtop___024root* vlSelf) {
                                            ? vlSelf->top__DOT__ImmOp
                                            : vlSelf->top__DOT__ALU__DOT__rd2);
     vlSelf->wr_en = vlSelf->top__DOT__write_en;
-    vlSelf->ctrlalu = vlSelf->top__DOT__ALU_ctrl;
+    vlSelf->aluCtrl = vlSelf->top__DOT__ALU_ctrl;
     vlSelf->extout = vlSelf->top__DOT__ImmOp;
     if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
         vlSelf->top__DOT__ALUout = (vlSelf->top__DOT__ALU__DOT__rd1 
@@ -139,7 +139,7 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->wr_en = VL_RAND_RESET_I(1);
     vlSelf->Eq = VL_RAND_RESET_I(1);
     vlSelf->alusrc = VL_RAND_RESET_I(1);
-    vlSelf->ctrlalu = VL_RAND_RESET_I(3);
+    vlSelf->aluCtrl = VL_RAND_RESET_I(3);
     vlSelf->extout = VL_RAND_RESET_I(32);
     vlSelf->aluout = VL_RAND_RESET_I(32);
     vlSelf->top__DOT__write_en = VL_RAND_RESET_I(1);

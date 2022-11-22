@@ -18,7 +18,7 @@ class Vtop___024root final : public VerilatedModule {
     VL_OUT8(wr_en,0,0);
     VL_OUT8(Eq,0,0);
     VL_OUT8(alusrc,0,0);
-    VL_OUT8(ctrlalu,2,0);
+    VL_OUT8(aluCtrl,2,0);
     CData/*0:0*/ top__DOT__write_en;
     CData/*2:0*/ top__DOT__ALU_ctrl;
     CData/*0:0*/ top__DOT__EQ;

@@ -18,7 +18,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+59,"wr_en", false,-1);
     tracep->declBit(c+60,"Eq", false,-1);
     tracep->declBit(c+61,"alusrc", false,-1);
-    tracep->declBus(c+62,"ctrlalu", false,-1, 2,0);
+    tracep->declBus(c+62,"aluCtrl", false,-1, 2,0);
     tracep->declBus(c+63,"extout", false,-1, 31,0);
     tracep->declBus(c+64,"aluout", false,-1, 31,0);
     tracep->pushNamePrefix("top ");
@@ -31,7 +31,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__0(Vtop___024root* vlSelf,
     tracep->declBit(c+59,"wr_en", false,-1);
     tracep->declBit(c+60,"Eq", false,-1);
     tracep->declBit(c+61,"alusrc", false,-1);
-    tracep->declBus(c+62,"ctrlalu", false,-1, 2,0);
+    tracep->declBus(c+62,"aluCtrl", false,-1, 2,0);
     tracep->declBus(c+63,"extout", false,-1, 31,0);
     tracep->declBus(c+64,"aluout", false,-1, 31,0);
     tracep->declBit(c+1,"write_en", false,-1);
@@ -268,7 +268,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+59,(vlSelf->wr_en));
     bufp->fullBit(oldp+60,(vlSelf->Eq));
     bufp->fullBit(oldp+61,(vlSelf->alusrc));
-    bufp->fullCData(oldp+62,(vlSelf->ctrlalu),3);
+    bufp->fullCData(oldp+62,(vlSelf->aluCtrl),3);
     bufp->fullIData(oldp+63,(vlSelf->extout),32);
     bufp->fullIData(oldp+64,(vlSelf->aluout),32);
     bufp->fullIData(oldp+65,(0x20U),32);

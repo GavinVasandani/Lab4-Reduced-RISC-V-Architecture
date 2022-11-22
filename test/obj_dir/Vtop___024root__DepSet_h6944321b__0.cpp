@@ -74,7 +74,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
                                            ? vlSelf->top__DOT__ImmOp
                                            : vlSelf->top__DOT__ALU__DOT__rd2);
     vlSelf->wr_en = vlSelf->top__DOT__write_en;
-    vlSelf->ctrlalu = vlSelf->top__DOT__ALU_ctrl;
+    vlSelf->aluCtrl = vlSelf->top__DOT__ALU_ctrl;
     vlSelf->extout = vlSelf->top__DOT__ImmOp;
     if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
         vlSelf->top__DOT__ALUout = (vlSelf->top__DOT__ALU__DOT__rd1 

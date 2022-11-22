@@ -12,7 +12,7 @@ module top#(
     output logic wr_en,
     output logic Eq,
     output logic alusrc,
-    output logic[2:0] ctrlalu,
+    output logic[2:0] aluCtrl,
     output logic[31:0] extout,
     output logic [DATA_WIDTH - 1:0] aluout
 
@@ -86,10 +86,11 @@ topLevelALU ALU(
 );
 
 assign aluout = ALUout;
-assign ctrlalu = ALU_ctrl;
+assign aluCtrl = ALU_ctrl;
 assign wr_en = write_en;
 assign Eq = EQ;
 assign extout = ImmOp;
 assign alusrc = ALU_src;
+
 
 endmodule

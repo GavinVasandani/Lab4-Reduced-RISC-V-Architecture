@@ -110,7 +110,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
     bufp->chgBit(oldp+58,(vlSelf->wr_en));
     bufp->chgBit(oldp+59,(vlSelf->Eq));
     bufp->chgBit(oldp+60,(vlSelf->alusrc));
-    bufp->chgCData(oldp+61,(vlSelf->ctrlalu),3);
+    bufp->chgCData(oldp+61,(vlSelf->aluCtrl),3);
     bufp->chgIData(oldp+62,(vlSelf->extout),32);
     bufp->chgIData(oldp+63,(vlSelf->aluout),32);
 }

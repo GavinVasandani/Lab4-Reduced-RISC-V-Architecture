@@ -30,7 +30,7 @@ class Vtop VL_NOT_FINAL : public VerilatedModel {
     VL_OUT8(&wr_en,0,0);
     VL_OUT8(&Eq,0,0);
     VL_OUT8(&alusrc,0,0);
-    VL_OUT8(&ctrlalu,2,0);
+    VL_OUT8(&aluCtrl,2,0);
     VL_OUT(&trash,31,0);
     VL_OUT(&a0,31,0);
     VL_OUT(&extout,31,0);
