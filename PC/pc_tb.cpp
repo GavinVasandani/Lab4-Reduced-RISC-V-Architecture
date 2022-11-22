@@ -18,8 +18,8 @@ int main(int argc,char **argv, char **env){
     // initialize simulation inputs
     top->clk = 1;
     top->rst = 1;
-    top->PCsrc = 1; // when in mode 1, it selects branch I/O. To use regular increment you need to set PCsrc to 0. 
-    top->ImmOp = 0xFFF; // this should increment by -1. It is greater than 8 bits and proves that the PC block works.
+    top->PCsrc = 0; // when in mode 0, the rom increments by 4. To test the ImmOp branch operation, set this to 1 and change the variable below to the increment/decrement you want to test.
+    top->ImmOp = 0xFFF; // this should increment by -1 when in branch mode. It is greater than 8 bits and proves that the PC block works.
     
     //run simulation for many clock cycles
     for (i=0; i<300; i++){ // clock cycles - used only 300 to limit size of VCD file
