@@ -50,7 +50,7 @@ PC myPC(
 );
 
 assign imm_imm = PC_instr[31:20];
-assign imm_branch = {PC_instr[31],PC_instr[7],PC_instr[30:25],PC_instr[11:8]};
+assign imm_branch = {PC_instr[31],PC_instr[7],PC_instr[30:25],PC_instr[11:8],1'b0};
 
 ext sign_extend(
     //.clk    (clk),
