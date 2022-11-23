@@ -1,8 +1,8 @@
 # Lab4-Reduced-RISC-V-Architecture
 
-# Part 1: PC Block + Instruction Memory
+## Part 1: PC Block + Instruction Memory
 
-- ## Functioning
+- ### Functioning
 
   - **Counter & Mux:** The PC block is responsible for smooth progressing of the program. It consists of a counter (called a program counter) which moves up in increments depending upon outputs from a mux block. The mux block in question takes inputs depending on if the operation requires a branch/jump (where the address to jump to is specified in the instruction) or a regular operation. These two functions are handled by branch_PC and inc_PC as shown below.
 
@@ -16,11 +16,11 @@
 
     **insert picture of PC reg here**
 
-- ## PC Register
+- ### PC Register
 
 ---
 
-- ## Common bugs
+- ## **Common bugs**
 
   *These are the bugs that appears multiple times in the project*
 
