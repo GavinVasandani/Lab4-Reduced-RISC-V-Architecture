@@ -16,9 +16,9 @@
 
     **insert picture of PC reg here**
 
----
-
 - ## PC Register
+
+---
 
 - ## Common bugs
 
