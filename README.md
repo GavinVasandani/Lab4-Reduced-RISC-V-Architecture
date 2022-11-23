@@ -36,8 +36,8 @@
   );
   ```
 
-  - please make sure that module name match the name of .sv file
-  - ";" has to be added to every logic variable created
+  - Make sure that module name matches the name of .sv file
+  - ";" has to be added to every logic variable created.
 
   ```
   logic PC_src;
@@ -45,5 +45,3 @@
   logic [4:0] rs2;
   logic [4:0] rd;
   ```
-
-  - all 
