@@ -1,6 +1,5 @@
-//Register file is just special type of RAM component so copy RAM template code:
-
-module regFile # (
+module regfile # (
+    //Register file is just special type of RAM component so copy RAM template code:
     parameter NumberOfReg = 32,
               Address_Width = 5, //32 registers so address size is 5 bits
               Data_Width = 32 //32-bit data
@@ -26,13 +25,14 @@ logic [Data_Width-1:0] regFile_array [2**Address_Width-1:0]; //So 32-bit regfile
 initial begin 
         $display("Initializing regFile with null values (0).");
         $readmemh("regFile.mem", regFile_array); 
+        $display("regFile successfully loaded.");
 end;
 
 //Register file is sequential (clocked) so only at rising edge we output the value stored at register given by regFile_array[rs1]
 always_ff @ (posedge clk) 
     //At rising edge do:
-    rd1 <= regFile_array [rs1];
-    rd2 <= regFile_array [rs2];
+    rd1 <= regFile_array[rs1];
+    rd2 <= regFile_array[rs2];
     if (en) begin
         //regfile_array[rd] only reassigned at clock edge so use <=
         regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd

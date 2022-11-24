@@ -1,4 +1,4 @@
-module aluComponent # (
+module topLevelALU # (
     parameter NumberOfReg = 32,
               Address_Width = 5, //32 registers so address size is 5 bits
               Data_Width = 32
@@ -31,9 +31,9 @@ logic [Data_Width-1:0] ALUop2;
 logic [Data_Width-1:0] dinTest;
 
 //Initializing objects of the different modules and linking them
-regFile regFile1 (clk, rs1, rs2, rd, regFileWen, dinTest, rd1, rd2, a0);
-ALUMux mux1 (rd2, ImmOp, ALUsrc, ALUOp2);
-alu alu1 (rd1, ALUOp2, ALU_ctrl, dinTest, eq); //ALUOut is assigned to dinTest which is sent as input to regFile
+regfile regFile1 (clk, rs1, rs2, rd, regFileWen, dinTest, rd1, rd2, a0);
+regfileMux mux1 (rd2, ImmOp, ALUsrc, ALUOp2);
+regFileALU alu1 (rd1, ALUOp2, ALU_ctrl, dinTest, eq); //ALUOut is assigned to dinTest which is sent as input to regFile
 
 endmodule
 

@@ -1,5 +1,5 @@
 //Creating ALU module
-module alu # (
+module regFileALU # (
     parameter Address_Width = 5,
               //ALU_Instruction_Width = 1;
               Data_Width = 32
