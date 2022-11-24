@@ -18,22 +18,45 @@ module topLevelALU # (
     input logic ALU_ctrl,
 //Outputs
     //output logic [Data_Width-1:0] ALUout, //output of ALU is same size as ALU inputs
-    output logic eq,
-    output logic [Data_Width-1:0] a0
+    output logic eq
+    //output logic [Data_Width-1:0] a0
 );
 
 //Variable which acts in the middle:
 logic [Data_Width-1:0] rd1;
 logic [Data_Width-1:0] rd2;
-logic [Data_Width-1:0] ALUop2;
+logic [Data_Width-1:0] ALUOp2;
 
 //Din is output of ALU and input of regfile:
 logic [Data_Width-1:0] dinTest;
 
 //Initializing objects of the different modules and linking them
-regfile regFile1 (clk, rs1, rs2, rd, regFileWen, dinTest, rd1, rd2, a0);
-regfileMux mux1 (rd2, ImmOp, ALUsrc, ALUOp2);
-regFileALU alu1 (rd1, ALUOp2, ALU_ctrl, dinTest, eq); //ALUOut is assigned to dinTest which is sent as input to regFile
+//.variablefromClass(variablefromTop)
+regfile regFile1 (
+    .clk(clk),
+    .rs1(rs1),
+    .rs2(rs2), 
+    .rd(rd), 
+    .en(regFileWen), 
+    .din(dinTest), 
+    .rd1(rd1), 
+    .rd2(rd2)
+);
+
+regfileMux mux1 (
+    .regOp2(rd2), 
+    .ImmOp(ImmOp), 
+    .ALUSrc(ALUSrc), 
+    .ALUOp2(ALUOp2)
+);
+
+regFileALU alu1 (
+    .op1(rd1), 
+    .op2(ALUOp2), 
+    .ALU_ctrl(ALU_ctrl), 
+    .ALUout(dinTest), 
+    .eq(eq)
+); //ALUOut is assigned to dinTest which is sent as input to regFile
 
 endmodule
 

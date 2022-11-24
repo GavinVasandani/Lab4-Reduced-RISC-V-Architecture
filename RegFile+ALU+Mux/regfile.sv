@@ -13,8 +13,8 @@ module regfile # (
     input logic en, //Enable to determine whether we can write to register file or not
     input logic [Data_Width-1:0] din, //Data in which takes in ALU output to write to register rd. Registers hold 32 bit word so din is 32 bits
     output logic [Data_Width-1:0] rd1, //32 bit word that is stored in register that is outputted to ALU for operation
-    output logic [Data_Width-1:0] rd2, //32 bit word that is stored in register that is outputted to ALU for operation
-    output logic [Data_Width-1:0] a0 //Outputs data stored in a0 register
+    output logic [Data_Width-1:0] rd2 //32 bit word that is stored in register that is outputted to ALU for operation
+    //output logic [Data_Width-1:0] a0 //Outputs data stored in a0 register
 
 );
 
@@ -29,7 +29,7 @@ initial begin
 end;
 
 //Register file is sequential (clocked) so only at rising edge we output the value stored at register given by regFile_array[rs1]
-always_ff @ (posedge clk) 
+always_ff @ (posedge clk) begin
     //At rising edge do:
     rd1 <= regFile_array[rs1];
     rd2 <= regFile_array[rs2];
@@ -37,6 +37,7 @@ always_ff @ (posedge clk)
         //regfile_array[rd] only reassigned at clock edge so use <=
         regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd
     end
+end
 
 endmodule
 //So this is all code for the regfile

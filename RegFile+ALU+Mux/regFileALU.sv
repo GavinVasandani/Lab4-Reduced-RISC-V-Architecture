@@ -17,16 +17,18 @@ module regFileALU # (
 
 always_comb begin //ALU implements different arithmetic/logic based on opcode input
     case (ALU_ctrl) //ALU is combinational, async so normal = is fine for variable assignments
-        1 b'0: //Add Immediate:
+        1'b0: begin//Add Immediate:
             ALUout = op1 + op2; /* eq is irrelevant here as instruction for adding the two inputs would not need to consider/evaluate eq,
             so eq can be any value here */
             /* Similarly for bne, ALUout is irrelevant as only eq will be evaluated to check whether to jump to label or not */
             eq = 0; //technically eq is don't care, and as branch = 0 for non-branching instructions then regardless of eq value we don't branch
-        1 b'1: //bne instruction:
+        end
+        1'b1: begin//bne instruction:
             ALUout = 0; //ALUout is don't care, but if we assign it some value as instruction is bne/beq then regFile write = 0 and memWrite = 0 so no effect of ALUout
             if((op1-op2)==0) eq = 1; //so if op1-op2 is 0 then means the operands are equal so eq = 1, else operands are not equal so eq=0
             else eq = 0;
             //ALUOut is don't care.
+        end
         default: $display("Instruction not detected.");
     endcase
 end
