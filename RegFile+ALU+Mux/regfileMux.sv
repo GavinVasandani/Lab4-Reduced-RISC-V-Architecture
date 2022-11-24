@@ -9,7 +9,7 @@ module ALUMux # (
     input logic [Data_Width-1:0] regOp2, //Output if mux select is 0
     input logic [Data_Width-1:0] ImmOp, //Output if mux select is 1
     input logic ALUSrc, //mux select
-    output logic [Data_Width-1:0] ALUOp2; //2nd output of ALU
+    output logic [Data_Width-1:0] ALUOp2 //2nd output of ALU
 );
 
 assign ALUOp2 = (ALUsrc) ? regOp2:ImmOp;

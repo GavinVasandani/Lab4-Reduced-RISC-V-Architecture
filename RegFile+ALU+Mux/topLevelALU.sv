@@ -1,7 +1,7 @@
 module aluComponent # (
     parameter NumberOfReg = 32,
               Address_Width = 5, //32 registers so address size is 5 bits
-              Data_Width = 32;
+              Data_Width = 32
               //ALU_Instruction_Width = 10;
 ) (
 //Interface Signals
@@ -19,7 +19,7 @@ module aluComponent # (
 //Outputs
     //output logic [Data_Width-1:0] ALUout, //output of ALU is same size as ALU inputs
     output logic eq,
-    output logic [Data_Width-1:0] a0;
+    output logic [Data_Width-1:0] a0
 );
 
 //Variable which acts in the middle:

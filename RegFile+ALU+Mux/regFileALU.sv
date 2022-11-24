@@ -2,7 +2,7 @@
 module alu # (
     parameter Address_Width = 5,
               //ALU_Instruction_Width = 1;
-              Data_Width = 32;
+              Data_Width = 32
 ) (
     //Interface signals
     input logic [Data_Width-1:0] op1, //input op1 into ALU which is output content from a register
@@ -10,7 +10,7 @@ module alu # (
     //input logic [ALU_Instruction_Width-1:0] ALU_ctrl,
     input logic ALU_ctrl,
     output logic [Data_Width-1:0] ALUout, //output of ALU is same size as ALU inputs
-    output logic eq; //Eq is probably carry out flag
+    output logic eq //Eq is probably carry out flag
 );
 
 //ALU is not clocked component, it's combinational so:
