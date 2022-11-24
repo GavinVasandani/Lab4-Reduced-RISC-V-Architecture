@@ -24,7 +24,7 @@ logic [Data_Width-1:0] regFile_array [2**Address_Width-1:0]; //So 32-bit regfile
 //Registers in regfile are not initialized to anything so neither contents = 0 or contents are empty, so add rst which sets all content values to 0
 initial begin 
         $display("Initializing regFile with null values (0).");
-        $readmemh("regFile.mem", regFile_array); 
+        $readmemh("regfileInputs.mem", regFile_array); 
         $display("regFile successfully loaded.");
 end;
 
