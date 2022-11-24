@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **env) {
     tfp->open("topLevelALU.vcd"); //C++ executable of the system verilog file
 
     //Initial simulation inputs:
-    //9 input logic:
+    //8 input logic:
     //test instruction 1: addi a1,a0,255 same as addi a1,zero,255 - works.
     /*
     top->clk = 1;
