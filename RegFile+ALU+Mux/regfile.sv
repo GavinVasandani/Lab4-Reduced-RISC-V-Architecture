@@ -34,7 +34,8 @@ always_ff @ (posedge clk)
     rd1 <= regFile_array [rs1];
     rd2 <= regFile_array [rs2];
     if (en) begin
-        regFile_array[rd] = din; //so at rising edge also the din is stored at register given by address rd
+        //regfile_array[rd] only reassigned at clock edge so use <=
+        regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd
     end
 
 endmodule

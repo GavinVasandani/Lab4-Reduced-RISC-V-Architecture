@@ -12,7 +12,7 @@ module ALUMux # (
     output logic [Data_Width-1:0] ALUOp2; //2nd output of ALU
 );
 
-ALUOp2 = (ALUsrc) ? regOp2:ImmOp;
+assign ALUOp2 = (ALUsrc) ? regOp2:ImmOp;
 
 endmodule
 
