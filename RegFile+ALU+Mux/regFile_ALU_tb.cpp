@@ -30,7 +30,7 @@ int main(int argc, char **argv, char **env) {
     top->ALU_ctrl = 0; //add operation so 0
     */
 
-   //test instruction 2: bne a1, a0, xxxx
+   //test instruction 2: bne a1, a0, xxxx - works.
    //expected output: eq = 1
     top->clk = 1;
     top->rs1 = 0x0; //5 bit binary input so for a0 reg address is 00000
