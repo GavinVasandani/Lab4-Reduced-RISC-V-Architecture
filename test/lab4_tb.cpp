@@ -17,7 +17,7 @@ int main(int argc, char **argv, char **env) {
 
     top->rst = 0;
 
-    for (i=0; i<100; i++){
+    for (i=0; i<1000; i++){
 
         for (clk=0; clk<2; clk++){
             tfp->dump (2*i + clk);
