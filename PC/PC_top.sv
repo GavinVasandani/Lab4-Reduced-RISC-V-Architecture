@@ -15,17 +15,8 @@ module PC_top #(
 
   assign ImmOp_intermed = ImmOp[ADDRESS_WIDTH-1:0];
 
-pcreg myPCreg (
-  .ImmOp(ImmOp_intermed),
-  .PC(PC),
-  .PCsrc(PCsrc),
-  .clk (clk),
-  .rst (rst)
-);
+pcreg myPCreg(ImmOp_intermed, PCsrc, clk, rst, PC);
 
-rom myRom (
-  .PC(PC),
-  .instr(instr)
-);
+rom myRom(PC, instr);
 
 endmodule
