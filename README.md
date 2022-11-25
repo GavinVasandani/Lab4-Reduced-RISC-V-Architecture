@@ -16,8 +16,22 @@
 
     **insert picture of PC reg here**
 
-- ### PC Register
+- ### PC Register & Counter & Mux
+  The **pcreg** module handled the creation of a register and the mux based on the picture above, it handled the mux block, as well as the pc register. The mux block depends on **PCsrc**, a control input. When **PCsrc** is high, the program counter accepts input from the branch component. When **PCsrc** is low, the program counter increments by 4 (due to byte addressing). This can be seen in the code snippet below:
+  ```systemverilog
+  assign branch_PC = PC + ImmOp;
+  assign inc_PC = PC + 8'h4;
 
+  assign next_PC = PCsrc ? branch_PC : inc_PC;  
+  ```
+   The program counter ensures a one cycle delay between input PC (to calculate the increment and subsequent PC) and the output PC (which is pushed forward to the instruction memory as well as used as input PC for the next cycle). This is implemented with the code below (synchronously):
+  ```systemverilog
+  always_ff @(posedge clk)
+    if(rst) PC <= {ADDRESS_WIDTH{1'b0}};
+    else    PC <= next_PC;  
+  ```
+
+- ### Instruction Memory
 ---
 
 - ## **Common bugs**
@@ -26,7 +40,7 @@
 
   - ";" or "," is not required for the last **input/output**, same for using module in high level module.
 
-  ```
+  ```systemverilog
   PC myPC(
       .ImmOp  (ImmOp),
       .PCsrc  (Pc_src),
@@ -39,7 +53,7 @@
   - Make sure that module name matches the name of .sv file
   - ";" has to be added to every logic variable created.
 
-  ```
+  ```systemverilog
   logic PC_src;
   logic [4:0] rs1;
   logic [4:0] rs2;
