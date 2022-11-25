@@ -12,7 +12,7 @@ module ram #(
 logic [DATA_WIDTH-1:0] ram_array [2**ADDRESS_WIDTH-1:0];
 
 initial begin
-    A = {ADDRESS_WIDTH{1'b0}}
+    A = {ADDRESS_WIDTH{1'b0}};
 end
 
 always_ff @(posedge clk) begin
