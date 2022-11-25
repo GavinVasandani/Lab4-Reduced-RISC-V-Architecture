@@ -9,7 +9,7 @@ module ram #(
     output logic [Data_Width-1:0] RD // read output
 );
 
-logic [DATA_WIDTH-1:0] ram_array [2**ADDRESS_WIDTH-1:0];
+logic [Data_Width-1:0] ram_array [2**Address_Width-1:0];
 
 //Loading mem locations with some values:
 initial begin 
@@ -19,9 +19,9 @@ initial begin
 end;
 
 //check why needed:
-initial begin
-    A = {ADDRESS_WIDTH{1'b0}};
-end
+/*initial begin
+    A = {Address_Width{1'b0}};
+end*/
 
 assign RD = ram_array[A];
 

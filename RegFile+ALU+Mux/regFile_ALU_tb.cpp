@@ -19,7 +19,7 @@ int main(int argc, char **argv, char **env) {
     //Initial simulation inputs:
     //8 input logic:
     //test instruction 1: addi a1,a0,255 same as addi a1,zero,255 - works.
-    top->clk = 1;
+    /*top->clk = 1;
     top->rs1 = 0x0; //5 bit binary input so for a0 reg address is 00000
     top->rs2 = 0x3; //irrelevant for addi operation
     top->rd = 0x1; //a1 reg address
@@ -27,6 +27,7 @@ int main(int argc, char **argv, char **env) {
     top->ALUSrc = 1; //as using we're immediate
     top->ImmOp = 0xFF; //which is 255
     top->ALU_ctrl = 0; //add operation so 0
+    */
 
    //test instruction 2: bne a1, a0, xxxx - works.
    //expected output: eq = 1
@@ -41,14 +42,16 @@ int main(int argc, char **argv, char **env) {
     top->ALU_ctrl = 1; //bne operation so 1
     */
 
-    //test instruction 3: lw a0, 0(a1) so a0 = mem[a1+0]
+    //test instruction 3: lw a0, 0(a1) so a0 = mem[a1+0],
+    //do lw a0, 1(a1) assign a0 = 1 initially, a1 = 0x01 so 0x01+1 = 0x02 and mem[0x02] assign 3
+    //so expected a0 value is 3 - works.
     top->clk = 1;
     top->rs1 = 0x1; //a1 address given by rs1
-    top->rs2 = 0x0; //a0 address given by rs2
-    top->rd = 0x2; //don't care in this instruction
+    top->rs2 = 0x2; //not relevant aka don't care
+    top->rd = 0x0; //write to a0
     top->regFileWen = 1; //as we're doing a0 = mem[a1+0]
     top->ALUSrc = 1; //we want to add immediate (offset) to rs1 to get effective address, assign 0 if adding value from 2 registers
-    top->ImmOp = 0x0; //offset from base given by ImmOp, assumed ImmOp is after sign extension so its 32 bits
+    top->ImmOp = 0x1; //offset from base given by ImmOp, assumed ImmOp is after sign extension so its 32 bits
     top->ALU_ctrl = 0; //add operation
     top->MemWrite = 0; //Not rewriting mem location in RAM
     top->ResultSrc = 1; //ReadData is being assigned to register a0, if doing addi instruction then ResultSrc = 0
