@@ -1,3 +1,4 @@
+// this is for the final CPU (lw operation), you need to add logic for ResultSrc into the control unit before implementing sw.
 module top_datamem(
     parameter ADDRESS_WIDTH = 32,
     DATA_WIDTH = 32
