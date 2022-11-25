@@ -41,6 +41,18 @@ int main(int argc, char **argv, char **env) {
     top->ALU_ctrl = 1; //bne operation so 1
     */
 
+    //test instruction 3: lw a0, 0(a1) so a0 = mem[a1+0]
+    top->clk = 1;
+    top->rs1 = 0x1; //a1 address given by rs1
+    top->rs2 = 0x0; //a0 address given by rs2
+    top->rd = 0x2; //don't care in this instruction
+    top->regFileWen = 1; //as we're doing a0 = mem[a1+0]
+    top->ALUSrc = 1; //we want to add immediate (offset) to rs1 to get effective address, assign 0 if adding value from 2 registers
+    top->ImmOp = 0x0; //offset from base given by ImmOp, assumed ImmOp is after sign extension so its 32 bits
+    top->ALU_ctrl = 0; //add operation
+    top->MemWrite = 0; //Not rewriting mem location in RAM
+    top->ResultSrc = 1; //ReadData is being assigned to register a0, if doing addi instruction then ResultSrc = 0
+
     for (i=0; i<300; i++){
 
         for (clk=0; clk<2; clk++){
