@@ -1,6 +1,6 @@
 module PC_top #(
         parameter ADDRESS_WIDTH = 8,
-        IMMOP_WIDTH = 32, // just a workaround at the moment, will work fine for now but need to figure out why memory alloation isn't taking place accurately.
+        IMMOP_WIDTH = 32, // just a workaround at the moment, will work fine for now but need to figure out why memory allocation isn't taking place accurately.
     DATA_WIDTH = 32
 )(
   input logic [IMMOP_WIDTH-1:0] ImmOp,
@@ -15,17 +15,8 @@ module PC_top #(
 
   assign ImmOp_intermed = ImmOp[ADDRESS_WIDTH-1:0];
 
-pcreg myPCreg (
-  .ImmOp(ImmOp_intermed),
-  .PC(PC),
-  .PCsrc(PCsrc),
-  .clk (clk),
-  .rst (rst)
-);
+pcreg myPCreg(ImmOp_intermed, PCsrc, clk, rst, PC);
 
-rom myRom (
-  .PC(PC),
-  .instr(instr)
-);
+rom myRom(PC, instr);
 
 endmodule
