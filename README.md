@@ -40,7 +40,7 @@
 
   - ";" or "," is not required for the last **input/output**, same for using module in high level module.
 
-  ```
+  ```systemverilog
   PC myPC(
       .ImmOp  (ImmOp),
       .PCsrc  (Pc_src),
@@ -53,7 +53,7 @@
   - Make sure that module name matches the name of .sv file
   - ";" has to be added to every logic variable created.
 
-  ```
+  ```systemverilog
   logic PC_src;
   logic [4:0] rs1;
   logic [4:0] rs2;
