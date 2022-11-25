@@ -37,7 +37,7 @@ module top#(
 
     assign rs1 = PC_instr[19:15];
     assign rs2 = PC_instr[24:20];
-    assign rd  = PC_instr[24:20];
+    assign rd  = PC_instr[11:7];
     
 
     assign trash = PC_instr;

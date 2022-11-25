@@ -19,7 +19,6 @@ int main(int argc, char **argv, char **env) {
     //Initial simulation inputs:
     //8 input logic:
     //test instruction 1: addi a1,a0,255 same as addi a1,zero,255 - works.
-    /*
     top->clk = 1;
     top->rs1 = 0x0; //5 bit binary input so for a0 reg address is 00000
     top->rs2 = 0x3; //irrelevant for addi operation
@@ -28,10 +27,10 @@ int main(int argc, char **argv, char **env) {
     top->ALUSrc = 1; //as using we're immediate
     top->ImmOp = 0xFF; //which is 255
     top->ALU_ctrl = 0; //add operation so 0
-    */
 
    //test instruction 2: bne a1, a0, xxxx - works.
    //expected output: eq = 1
+   /*
     top->clk = 1;
     top->rs1 = 0x0; //5 bit binary input so for a0 reg address is 00000
     top->rs2 = 0x1; //5 bit binary input so for a1 reg address is 00001
@@ -40,7 +39,7 @@ int main(int argc, char **argv, char **env) {
     top->ALUSrc = 0; //as we're using register value so 0
     top->ImmOp = 0xFF; //which is 255, don't care
     top->ALU_ctrl = 1; //bne operation so 1
-
+    */
 
     for (i=0; i<300; i++){
 

@@ -22,12 +22,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
         __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 = 1U;
         __Vdlyvdim0__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 
             = (0x1fU & (vlSelf->top__DOT__PC_instr 
-                        >> 0x14U));
+                        >> 7U));
     }
-    vlSelf->top__DOT__ALU__DOT__rd1 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
-        [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0xfU))];
-    vlSelf->top__DOT__ALU__DOT__rd2 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
-        [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0x14U))];
     vlSelf->top__DOT__myPC__DOT__PC = ((IData)(vlSelf->rst)
                                         ? 0U : (IData)(vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC));
     if (__Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0) {
@@ -60,8 +56,11 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
                                                  >> 0x14U)) 
                                       | (0x1eU & (vlSelf->top__DOT__PC_instr 
                                                   >> 7U))));
-        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ALU__DOT__rd2;
+        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
+            [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0x14U))];
     }
+    vlSelf->top__DOT__ALU__DOT__rd1 = vlSelf->top__DOT__ALU__DOT__regFile1__DOT__regFile_array
+        [(0x1fU & (vlSelf->top__DOT__PC_instr >> 0xfU))];
     vlSelf->wr_en = vlSelf->top__DOT__write_en;
     vlSelf->aluCtrl = vlSelf->top__DOT__ALU_ctrl;
     vlSelf->extout = vlSelf->top__DOT__ImmOp;

@@ -30,12 +30,24 @@ initial begin
 end;
 
 //Register file is sequential (clocked) so only at rising edge we output the value stored at register given by regFile_array[rs1]
-always_ff @ (posedge clk) begin
+/*always_ff @ (posedge clk) begin
     //At rising edge do:
     rd1 <= regFile_array [rs1];
     rd2 <= regFile_array [rs2];
     if (en)     regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd
     
+end*/
+
+//Read from reg file is combinational:
+assign rd1 = regFile_array[rs1];
+assign rd2 = regFile_array[rs2];
+
+always_ff @ (posedge clk) begin
+    //At rising edge do:
+    if (en) begin
+        //regfile_array[rd] only reassigned at clock edge so use <=
+        regFile_array[rd] <= din; //so at rising edge also the din is stored at register given by address rd
+    end
 end
 
 assign a0 = regFile_array[5'd10];
