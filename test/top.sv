@@ -30,10 +30,11 @@ module top#(
     logic [2:0] ALU_ctrl;
     logic EQ;
     logic [DATA_WIDTH-1:0] ImmOp;
+    logic ImmSrc;
     //logic [DATA_WIDTH-1:0] ALUout;
 
     logic [11:0] imm_imm;
-    logic [11:0] imm_branch;
+    logic [12:0] imm_branch;
 
     assign rs1 = PC_instr[19:15];
     assign rs2 = PC_instr[24:20];
