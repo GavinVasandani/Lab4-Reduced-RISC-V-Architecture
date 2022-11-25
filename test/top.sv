@@ -13,8 +13,8 @@ module top#(
     output logic Eq,
     output logic alusrc,
     output logic[2:0] aluCtrl,
-    output logic[31:0] extout,
-    output logic [DATA_WIDTH - 1:0] aluout
+    output logic[31:0] extout
+    //output logic [DATA_WIDTH - 1:0] aluout
 
 
 );
@@ -30,7 +30,7 @@ module top#(
     logic [2:0] ALU_ctrl;
     logic EQ;
     logic [DATA_WIDTH-1:0] ImmOp;
-    logic [DATA_WIDTH-1:0] ALUout;
+    //logic [DATA_WIDTH-1:0] ALUout;
 
     logic [11:0] imm_imm;
     logic [11:0] imm_branch;
@@ -76,16 +76,16 @@ topLevelALU ALU(
     .rs2    (rs2),
     .rd     (rd),
     .en     (write_en),
-    .din    (write_data),
+    //.dinTest    (write_data),
     .ALUSrc (ALU_src),
     .ImmOp  (ImmOp),
     .ALU_ctrl (ALU_ctrl),
-    .ALUout (ALUout),
+    //.ALUout (ALUout),
     .eq     (EQ),
     .a0     (a0)
 );
 
-assign aluout = ALUout;
+//assign aluout = ALUout;
 assign aluCtrl = ALU_ctrl;
 assign wr_en = write_en;
 assign Eq = EQ;

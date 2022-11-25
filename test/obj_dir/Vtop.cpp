@@ -20,7 +20,6 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , trash{vlSymsp->TOP.trash}
     , a0{vlSymsp->TOP.a0}
     , extout{vlSymsp->TOP.extout}
-    , aluout{vlSymsp->TOP.aluout}
     , rootp{&(vlSymsp->TOP)}
 {
     // Register model with the context

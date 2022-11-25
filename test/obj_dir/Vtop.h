@@ -34,7 +34,6 @@ class Vtop VL_NOT_FINAL : public VerilatedModel {
     VL_OUT(&trash,31,0);
     VL_OUT(&a0,31,0);
     VL_OUT(&extout,31,0);
-    VL_OUT(&aluout,31,0);
 
     // CELLS
     // Public to allow access to /* verilator public */ items.

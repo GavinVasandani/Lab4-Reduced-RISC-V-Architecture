@@ -18,7 +18,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
     __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 = 0U;
     if (vlSelf->top__DOT__write_en) {
         __Vdlyvval__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 
-            = vlSelf->top__DOT__write_data;
+            = vlSelf->top__DOT__ALU__DOT__dinTest;
         __Vdlyvset__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 = 1U;
         __Vdlyvdim0__top__DOT__ALU__DOT__regFile1__DOT__regFile_array__v0 
             = (0x1fU & (vlSelf->top__DOT__PC_instr 
@@ -43,49 +43,39 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__0(Vtop___024root* vlSelf) {
         vlSelf->alusrc = 1U;
         vlSelf->top__DOT__write_en = 1U;
         vlSelf->top__DOT__ALU_ctrl = 0U;
-        vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
-                                                   & (vlSelf->top__DOT__PC_instr 
-                                                      >> 0x14U));
+        vlSelf->top__DOT__ImmOp = (((- (IData)((vlSelf->top__DOT__PC_instr 
+                                                >> 0x1fU))) 
+                                    << 0xcU) | (vlSelf->top__DOT__PC_instr 
+                                                >> 0x14U));
+        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ImmOp;
     } else {
         vlSelf->alusrc = 0U;
         if ((0x63U == (0x7fU & vlSelf->top__DOT__PC_instr))) {
             vlSelf->top__DOT__write_en = 0U;
             vlSelf->top__DOT__ALU_ctrl = 7U;
         }
-        vlSelf->top__DOT__sign_extend__DOT__imm = (0xfffU 
-                                                   & ((0x800U 
-                                                       & (vlSelf->top__DOT__PC_instr 
-                                                          >> 0x14U)) 
-                                                      | ((0x400U 
-                                                          & (vlSelf->top__DOT__PC_instr 
-                                                             << 3U)) 
-                                                         | ((0x3f0U 
-                                                             & (vlSelf->top__DOT__PC_instr 
-                                                                >> 0x15U)) 
-                                                            | (0xfU 
-                                                               & (vlSelf->top__DOT__PC_instr 
-                                                                  >> 8U))))));
+        vlSelf->top__DOT__ImmOp = ((0x800U & (vlSelf->top__DOT__PC_instr 
+                                              << 4U)) 
+                                   | ((0x7e0U & (vlSelf->top__DOT__PC_instr 
+                                                 >> 0x14U)) 
+                                      | (0x1eU & (vlSelf->top__DOT__PC_instr 
+                                                  >> 7U))));
+        vlSelf->top__DOT__ALU__DOT__ALUOp2 = vlSelf->top__DOT__ALU__DOT__rd2;
     }
-    vlSelf->top__DOT__ImmOp = (((- (IData)((1U & ((IData)(vlSelf->top__DOT__sign_extend__DOT__imm) 
-                                                  >> 0xbU)))) 
-                                << 0xcU) | (IData)(vlSelf->top__DOT__sign_extend__DOT__imm));
-    vlSelf->top__DOT__ALU__DOT__ALUOp2 = ((0x13U == 
-                                           (0x7fU & vlSelf->top__DOT__PC_instr))
-                                           ? vlSelf->top__DOT__ImmOp
-                                           : vlSelf->top__DOT__ALU__DOT__rd2);
     vlSelf->wr_en = vlSelf->top__DOT__write_en;
     vlSelf->aluCtrl = vlSelf->top__DOT__ALU_ctrl;
     vlSelf->extout = vlSelf->top__DOT__ImmOp;
     if ((0U == (IData)(vlSelf->top__DOT__ALU_ctrl))) {
-        vlSelf->top__DOT__ALUout = (vlSelf->top__DOT__ALU__DOT__rd1 
-                                    + vlSelf->top__DOT__ALU__DOT__ALUOp2);
+        vlSelf->top__DOT__ALU__DOT__dinTest = (vlSelf->top__DOT__ALU__DOT__rd1 
+                                               + vlSelf->top__DOT__ALU__DOT__ALUOp2);
+        vlSelf->top__DOT__EQ = 0U;
     } else if (VL_LIKELY((7U == (IData)(vlSelf->top__DOT__ALU_ctrl)))) {
-        vlSelf->top__DOT__EQ = (vlSelf->top__DOT__ALU__DOT__rd1 
-                                == vlSelf->top__DOT__ALU__DOT__ALUOp2);
+        vlSelf->top__DOT__ALU__DOT__dinTest = 0U;
+        vlSelf->top__DOT__EQ = (0U == (vlSelf->top__DOT__ALU__DOT__rd1 
+                                       - vlSelf->top__DOT__ALU__DOT__ALUOp2));
     } else {
         VL_WRITEF("Instruction not detected.\n");
     }
-    vlSelf->aluout = vlSelf->top__DOT__ALUout;
     vlSelf->Eq = vlSelf->top__DOT__EQ;
     vlSelf->top__DOT__myPC__DOT__myPCreg__DOT__next_PC 
         = (0xffU & (((0x13U != (0x7fU & vlSelf->top__DOT__PC_instr)) 
