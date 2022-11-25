@@ -21,3 +21,4 @@ always_ff @(posedge clk) begin
         RD <= ram_array[A];
 end
 endmodule
+    
