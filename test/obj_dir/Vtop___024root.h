@@ -25,6 +25,7 @@ class Vtop___024root final : public VerilatedModule {
     CData/*7:0*/ top__DOT__myPC__DOT__PC;
     CData/*7:0*/ top__DOT__myPC__DOT__myPCreg__DOT__next_PC;
     CData/*0:0*/ __Vclklast__TOP__clk;
+    SData/*12:0*/ top__DOT__imm_branch;
     VL_OUT(trash,31,0);
     VL_OUT(a0,31,0);
     VL_OUT(extout,31,0);
