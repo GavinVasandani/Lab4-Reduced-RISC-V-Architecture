@@ -13,7 +13,7 @@ module top#(
 
 );
 
-    logic             write_en;
+    logic write_en;
     logic [DATA_WIDTH-1:0] PC_instr;
     logic PC_src;
     logic [4:0] rs1;
@@ -24,21 +24,16 @@ module top#(
     logic [2:0] ALU_ctrl;
     logic EQ;
     logic [DATA_WIDTH-1:0] ImmOp;
-    logic ImmSrc;
-    //logic [DATA_WIDTH-1:0] ALUout;
-
+    logic [1:0]  ImmSrc;
     logic [11:0] imm_imm;
     logic [12:0] imm_branch;
-
     logic MemWrite;
     logic ResultSrc;
 
     assign rs1 = PC_instr[19:15];
     assign rs2 = PC_instr[24:20];
     assign rd  = PC_instr[11:7];
-    
 
-    assign trash = PC_instr;
 PC myPC(
     .ImmOp  (ImmOp),
     .PCsrc  (PC_src),
@@ -64,7 +59,9 @@ control control_unit(
     .ALUctrl    (ALU_ctrl),
     .ALUsrc     (ALU_src),
     .ImmSrc     (ImmSrc),
-    .PCsrc      (PC_src)
+    .PCsrc      (PC_src),
+    .ResultSrc  (ResultSrc),
+    .MemWrite   (MemWrite)
 );
 topLevelALU ALU(
     .clk    (clk),
