@@ -17,7 +17,7 @@ always_comb
         2'b10:
             case(funct3) 
                 3'b000:
-                    if({op5, funct75} = 2'b11)         // sub
+                    if({op5, funct75} == 2'b11)         // sub
                         ALUControl = 3'b001;
                     else                            // add
                         ALUControl = 3'b000;
