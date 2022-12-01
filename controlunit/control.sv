@@ -1,50 +1,26 @@
 module control(
-    input logic         EQ,
-    input logic [6:0]   instr_opcode,
+    input logic [6:0]   op,
+    input logic [2:0]   funct3,
+    input logic         funct75,
+    input logic         Zero,
 
-    output logic RegWrite,
-    output logic[2:0] ALUctrl,
-    output logic ALUsrc,
-    output logic ImmSrc,
-    output logic PCsrc
+    output logic        PCSrc,
+    output logic        ResultSrc,
+    output logic        MemWrite,
+    output logic [2:0]  ALUControl,
+    output logic        ALUSrc,
+    output logic [1:0]  ImmSrc,
+    output RegWrite
 );
 
+logic Branch;
 
 always_comb begin
 
-    ALUctrl = funct3;
+    mainDecoder m(op, Branch, ResultSrc, MemWrite, ALUSrc, RegWrite, ALUOp);
+    ALUDecoder a(op[5], funct3, funct75, ALUOp, ALUControl);
 
-    case(instr_opcode)
-        7'b0010011: begin ALUctrl = 3'b000;
-                          RegWrite = 1;     //addi
-                          ALUsrc = 1;
-                          ImmSrc = 1;
-                          PCsrc = 0;
-        end 
-
-    
-        7'b1100011: begin ALUctrl = 3'b111;     //bne
-                          ALUsrc = 0;
-                          ImmSrc = 0;
-                          PCsrc = ~EQ;
-        end
-
-
-        7'b0000011: begin ALUctrl = 3'b000;
-                          RegWrite = 0;     //lw
-                          ALUsrc = 1;
-                          ImmSrc = 1;
-                          PCsrc = 0;
-        end
-
-
-        default: begin
-            ALUsrc = 0;
-            ImmSrc = 0;
-            PCsrc = 0;
-        end
-
-    endcase
+    PCSrc = Zero & Branch;
     
 end
     
