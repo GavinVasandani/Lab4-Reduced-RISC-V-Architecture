@@ -1,6 +1,7 @@
 module mainDecoder(
     input logic[6:0]    op,
 
+    output logic[1:0]   ImmSrc,
     output logic        Branch,
     output logic        ResultSrc,
     output logic        MemWrite,
@@ -38,7 +39,7 @@ always_comb begin
             MemWrite = 0;
             ResultSrc = 0;
             Branch = 0;
-            ALUOp = 2'b01;
+            ALUOp = 2'b10;
         end
 
         7'b1100011: begin           //beq

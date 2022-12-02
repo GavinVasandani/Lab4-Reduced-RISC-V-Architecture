@@ -17,10 +17,11 @@ module control(
 );
 
 logic Branch;
-
+logic [1:0] ALUOp;
 
 mainDecoder m(
     .op(op), 
+    .ImmSrc(ImmSrc),
     .Branch(Branch), 
     .ResultSrc(ResultSrc), 
     .MemWrite(MemWrite), 
@@ -29,7 +30,6 @@ mainDecoder m(
     .ALUOp(ALUOp)
     );
 
-        
 ALUDecoder a(
     .op5(op[5]), 
     .funct3(funct3), 
