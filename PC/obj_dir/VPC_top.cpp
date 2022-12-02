@@ -35,27 +35,15 @@ VPC_top::~VPC_top() {
 }
 
 //============================================================
-// Evaluation loop
+// Evaluation function
 
-void VPC_top___024root___eval_initial(VPC_top___024root* vlSelf);
-void VPC_top___024root___eval_settle(VPC_top___024root* vlSelf);
-void VPC_top___024root___eval(VPC_top___024root* vlSelf);
 #ifdef VL_DEBUG
 void VPC_top___024root___eval_debug_assertions(VPC_top___024root* vlSelf);
 #endif  // VL_DEBUG
-void VPC_top___024root___final(VPC_top___024root* vlSelf);
-
-static void _eval_initial_loop(VPC_top__Syms* __restrict vlSymsp) {
-    vlSymsp->__Vm_didInit = true;
-    VPC_top___024root___eval_initial(&(vlSymsp->TOP));
-    // Evaluate till stable
-    vlSymsp->__Vm_activity = true;
-    do {
-        VL_DEBUG_IF(VL_DBG_MSGF("+ Initial loop\n"););
-        VPC_top___024root___eval_settle(&(vlSymsp->TOP));
-        VPC_top___024root___eval(&(vlSymsp->TOP));
-    } while (0);
-}
+void VPC_top___024root___eval_static(VPC_top___024root* vlSelf);
+void VPC_top___024root___eval_initial(VPC_top___024root* vlSelf);
+void VPC_top___024root___eval_settle(VPC_top___024root* vlSelf);
+void VPC_top___024root___eval(VPC_top___024root* vlSelf);
 
 void VPC_top::eval_step() {
     VL_DEBUG_IF(VL_DBG_MSGF("+++++TOP Evaluate VPC_top::eval_step\n"); );
@@ -63,15 +51,26 @@ void VPC_top::eval_step() {
     // Debug assertions
     VPC_top___024root___eval_debug_assertions(&(vlSymsp->TOP));
 #endif  // VL_DEBUG
-    // Initialize
-    if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) _eval_initial_loop(vlSymsp);
-    // Evaluate till stable
     vlSymsp->__Vm_activity = true;
-    do {
-        VL_DEBUG_IF(VL_DBG_MSGF("+ Clock loop\n"););
-        VPC_top___024root___eval(&(vlSymsp->TOP));
-    } while (0);
+    if (VL_UNLIKELY(!vlSymsp->__Vm_didInit)) {
+        vlSymsp->__Vm_didInit = true;
+        VL_DEBUG_IF(VL_DBG_MSGF("+ Initial\n"););
+        VPC_top___024root___eval_static(&(vlSymsp->TOP));
+        VPC_top___024root___eval_initial(&(vlSymsp->TOP));
+        VPC_top___024root___eval_settle(&(vlSymsp->TOP));
+    }
+    VL_DEBUG_IF(VL_DBG_MSGF("+ Eval\n"););
+    VPC_top___024root___eval(&(vlSymsp->TOP));
     // Evaluate cleanup
+}
+
+//============================================================
+// Events and timing
+bool VPC_top::eventsPending() { return false; }
+
+uint64_t VPC_top::nextTimeSlot() {
+    VL_FATAL_MT(__FILE__, __LINE__, "", "%Error: No delays in the design");
+    return 0;
 }
 
 //============================================================
@@ -84,8 +83,10 @@ const char* VPC_top::name() const {
 //============================================================
 // Invoke final blocks
 
+void VPC_top___024root___eval_final(VPC_top___024root* vlSelf);
+
 VL_ATTR_COLD void VPC_top::final() {
-    VPC_top___024root___final(&(vlSymsp->TOP));
+    VPC_top___024root___eval_final(&(vlSymsp->TOP));
 }
 
 //============================================================
@@ -122,6 +123,9 @@ VL_ATTR_COLD static void trace_init(void* voidSelf, VerilatedVcd* tracep, uint32
 VL_ATTR_COLD void VPC_top___024root__trace_register(VPC_top___024root* vlSelf, VerilatedVcd* tracep);
 
 VL_ATTR_COLD void VPC_top::trace(VerilatedVcdC* tfp, int levels, int options) {
+    if (tfp->isOpen()) {
+        vl_fatal(__FILE__, __LINE__, __FILE__,"'VPC_top::trace()' shall not be called after 'VerilatedVcdC::open()'.");
+    }
     if (false && levels && options) {}  // Prevent unused
     tfp->spTrace()->addModel(this);
     tfp->spTrace()->addInitCb(&trace_init, &(vlSymsp->TOP));

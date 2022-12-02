@@ -1,9 +1,8 @@
 module PC_top #(
-        parameter ADDRESS_WIDTH = 8,
-        IMMOP_WIDTH = 32, // just a workaround at the moment, will work fine for now but need to figure out why memory allocation isn't taking place accurately.
+        parameter ADDRESS_WIDTH = 32, // just a workaround at the moment, will work fine for now but need to figure out why memory allocation isn't taking place accurately.
     DATA_WIDTH = 32
 )(
-  input logic [IMMOP_WIDTH-1:0] ImmOp,
+  input logic [ADDRESS_WIDTH-1:0] ImmOp,
   input logic                     PCsrc,
   input logic                     clk,
   input logic                     rst,
@@ -11,11 +10,8 @@ module PC_top #(
 );
 
   logic [ADDRESS_WIDTH-1:0] PC;
-  logic [ADDRESS_WIDTH-1:0] ImmOp_intermed;
 
-  assign ImmOp_intermed = ImmOp[ADDRESS_WIDTH-1:0];
-
-pcreg myPCreg(ImmOp_intermed, PCsrc, clk, rst, PC);
+pcreg myPCreg(ImmOp, PCsrc, clk, rst, PC);
 
 rom myRom(PC, instr);
 
