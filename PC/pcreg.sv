@@ -1,5 +1,5 @@
 module pcreg #(
-    parameter ADDRESS_WIDTH = 8
+    parameter ADDRESS_WIDTH = 32
 )(
     // inputs and corresponding outputs from left to right
     input logic [ADDRESS_WIDTH-1:0] ImmOp,
@@ -21,7 +21,7 @@ logic [ADDRESS_WIDTH-1:0] next_PC;
 
 // handles assigning individual control values to the mux block
 assign branch_PC = PC + ImmOp;
-assign inc_PC = PC + 8'h4;
+assign inc_PC = PC + 32'h4;
 
 
 // handles the mux block
