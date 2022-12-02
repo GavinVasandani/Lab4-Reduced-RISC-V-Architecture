@@ -19,7 +19,6 @@ module control(
 logic Branch;
 
 
-
 mainDecoder m(
     .op(op), 
     .Branch(Branch), 
