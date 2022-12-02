@@ -28,7 +28,7 @@ always_comb begin
             MemWrite = 1;
             //ResultSrc = 1;
             Branch = 0;
-            ALUOp = 2b'00;
+            ALUOp = 2'b00;
         end
 
         7'b0110011: begin           //R-type
@@ -38,7 +38,7 @@ always_comb begin
             MemWrite = 0;
             ResultSrc = 0;
             Branch = 0;
-            ALUOp = 2b'01;
+            ALUOp = 2'b01;
         end
 
         7'b1100011: begin           //beq
@@ -48,7 +48,7 @@ always_comb begin
             MemWrite = 0;
             //ResultSrc = 1;
             Branch = 1;
-            ALUOp = 2b'01;
+            ALUOp = 2'b01;
         end
     endcase
 end

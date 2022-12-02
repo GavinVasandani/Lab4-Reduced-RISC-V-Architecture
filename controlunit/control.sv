@@ -1,4 +1,7 @@
 module control(
+
+    //input logic clk,
+
     input logic [6:0]   op,
     input logic [2:0]   funct3,
     input logic         funct75,   //funct7[5]
@@ -10,18 +13,34 @@ module control(
     output logic [2:0]  ALUControl,
     output logic        ALUSrc,
     output logic [1:0]  ImmSrc,
-    output RegWrite
+    output logic        RegWrite
 );
 
 logic Branch;
 
-always_comb begin
 
-    mainDecoder m(op, Branch, ResultSrc, MemWrite, ALUSrc, RegWrite, ALUOp);
-    ALUDecoder a(op[5], funct3, funct75, ALUOp, ALUControl);
 
-    PCSrc = Zero & Branch;
+mainDecoder m(
+    .op(op), 
+    .Branch(Branch), 
+    .ResultSrc(ResultSrc), 
+    .MemWrite(MemWrite), 
+    .ALUSrc(ALUSrc), 
+    .RegWrite(RegWrite), 
+    .ALUOp(ALUOp)
+    );
+
+        
+ALUDecoder a(
+    .op5(op[5]), 
+    .funct3(funct3), 
+    .funct75(funct75), 
+    .ALUOp(ALUOp), 
+    .ALUControl(ALUControl)
+    );
+
+assign PCSrc = Zero & Branch;
     
-end
+
     
 endmodule
