@@ -17,7 +17,6 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , Eq{vlSymsp->TOP.Eq}
     , alusrc{vlSymsp->TOP.alusrc}
     , aluCtrl{vlSymsp->TOP.aluCtrl}
-    , trash{vlSymsp->TOP.trash}
     , a0{vlSymsp->TOP.a0}
     , extout{vlSymsp->TOP.extout}
     , rootp{&(vlSymsp->TOP)}

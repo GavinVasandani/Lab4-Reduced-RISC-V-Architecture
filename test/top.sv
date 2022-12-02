@@ -20,7 +20,7 @@ module top#(
     logic [4:0] rs2;
     logic [4:0] rd;
     logic [DATA_WIDTH-1:0] write_data;
-    logic ALU_src;
+    logic ALUSrc;
     logic [2:0] ALU_ctrl;
     logic EQ;
     logic [DATA_WIDTH-1:0] ImmOp;
@@ -34,7 +34,7 @@ module top#(
     assign rs2 = PC_instr[24:20];
     assign rd  = PC_instr[11:7];
 
-PC myPC(
+PC_top myPC(
     .ImmOp  (ImmOp),
     .PCsrc  (PC_src),
     .clk    (clk),
@@ -42,24 +42,23 @@ PC myPC(
     .instr   (PC_instr)
 );
 
-assign imm_imm = PC_instr[31:20];
-assign imm_branch = {PC_instr[31],PC_instr[7],PC_instr[30:25],PC_instr[11:8],1'b0};
-
 ext sign_extend(
-    .imm_imm (imm_imm),
-    .imm_branch (imm_branch),
+    .imm    (PC_instr[31:7]),
     .ImmSrc (ImmSrc),
-    .ImmOp  (ImmOp)
+    .ImmExt  (ImmOp)
 );
 
 control control_unit(
-    .EQ     (EQ),
-    .instr_opcode  (PC_instr[6:0]),
+    .op     (PC_instr[6:0]),
+    .funct3 (PC_instr[14:12]),
+    .funct75(PC_instr[30]),
+    .Zero     (EQ),
+    
     .RegWrite   (write_en),
-    .ALUctrl    (ALU_ctrl),
-    .ALUsrc     (ALU_src),
+    .ALUControl (ALU_ctrl),
+    .ALUSrc     (ALUSrc),
     .ImmSrc     (ImmSrc),
-    .PCsrc      (PC_src),
+    .PCSrc      (PC_src),
     .ResultSrc  (ResultSrc),
     .MemWrite   (MemWrite)
 );
@@ -68,11 +67,11 @@ topLevelALU ALU(
     .rs1    (rs1),
     .rs2    (rs2),
     .rd     (rd),
-    .en     (write_en),
-    .ALUSrc (ALU_src),
+    .regFileWen (write_en),
+    .ALUSrc (ALUSrc),
     .ImmOp  (ImmOp),
     .ALU_ctrl (ALU_ctrl),
-    .MemWrite (MenWrite),
+    .MemWrite (MemWrite),
     .ResultSrc (ResultSrc),
     //----output-----------
     .eq     (EQ)
@@ -83,7 +82,11 @@ assign aluCtrl = ALU_ctrl;
 assign wr_en = write_en;
 assign Eq = EQ;
 assign extout = ImmOp;
-assign alusrc = ALU_src;
+assign alusrc = ALUSrc;
 
 
 endmodule
+
+
+//johnny sb
+
