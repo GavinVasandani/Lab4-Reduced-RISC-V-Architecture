@@ -16,12 +16,21 @@ class VPC_top___024root final : public VerilatedModule {
     VL_IN8(clk,0,0);
     VL_IN8(PCsrc,0,0);
     VL_IN8(rst,0,0);
-    CData/*7:0*/ PC_top__DOT__PC;
-    CData/*7:0*/ PC_top__DOT__myPCreg__DOT__next_PC;
-    CData/*0:0*/ __Vclklast__TOP__clk;
+    CData/*0:0*/ __Vtrigrprev__TOP__clk;
+    CData/*0:0*/ __VactContinue;
     VL_IN(ImmOp,31,0);
     VL_OUT(instr,31,0);
-    VlUnpacked<IData/*31:0*/, 256> PC_top__DOT__myRom__DOT__rom_array;
+    IData/*31:0*/ PC_top__DOT__PC;
+    IData/*31:0*/ PC_top__DOT__myPCreg__DOT__next_PC;
+    IData/*31:0*/ __VstlIterCount;
+    IData/*31:0*/ __VicoIterCount;
+    IData/*31:0*/ __VactIterCount;
+    VlUnpacked<CData/*7:0*/, 28> PC_top__DOT__myRom__DOT__rom_array;
+    VlUnpacked<CData/*0:0*/, 1> __Vm_traceActivity;
+    VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
+    VlTriggerVec<1> __VactTriggered;
+    VlTriggerVec<1> __VnbaTriggered;
 
     // INTERNAL VARIABLES
     VPC_top__Syms* const vlSymsp;
