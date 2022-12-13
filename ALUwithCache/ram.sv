@@ -1,6 +1,7 @@
 module ram #(
-    parameter ADDRESS_WIDTH = 32, // needs to be 17 bit wide, look at memory map of final project for reasoning
+    parameter ADDRESS_WIDTH = 5, // needs to be 17 bit wide, look at memory map of final project for reasoning
     //memory addresses reserved from data memory is 0x00001000 to 0x00001FFF, so 12 bit address width, so 4096 referencable mem locations.
+    //5 bit RAM address means 32 mem locations so 8 words storeable
     DATA_WIDTH = 32, // 32 bit value stored in mem location of RAM - since it's byte addressed we store data in 4 addresses - confirm with GTA
     BYTE_WIDTH = 8
 )(
@@ -13,17 +14,16 @@ module ram #(
 );
 
 logic [BYTE_WIDTH-1:0] ram_array [2**ADDRESS_WIDTH-1:0]; //each mem location of array stores a byte-width so 8 bits
-logic [7:0] byteAssign;
-logic [15:0] halfwordAssign;
-
-// you don't need to initialize a ram array with 0s, there is no need for loadmemh operation
-//yeah but need to load in some initial values to the ram so probably do need a loadmemh operation
-
 initial begin 
         $display("Initializing ram with values.");
         $readmemh("ramInputs.mem", ram_array); 
         $display("RAM successfully initialized");
 end;
+logic [7:0] byteAssign;
+logic [15:0] halfwordAssign;
+
+// you don't need to initialize a ram array with 0s, there is no need for loadmemh operation
+//yeah but need to load in some initial values to the ram so probably do need a loadmemh operation
 
 //Include signal to differentiate word: 0, byte: 1
 
@@ -35,11 +35,11 @@ always_comb begin
         end 
         2'b01: begin //01 then use byte
             byteAssign = ram_array[A];
-            assign RD = {{24{byteAssign[7]}}, byteAssign};
+            assign RD = {{24{1'b0}}, byteAssign};
         end
         2'b10: begin //10 then use half word
             halfwordAssign = {ram_array[A+1], ram_array[A]};
-            assign RD = {{16{halfwordAssign[15]}}, halfwordAssign};
+            assign RD = {{16{1'b0}}, halfwordAssign};
         end
         default: $display("No dataType selected. Please choose word, byte or halfword.");
     endcase

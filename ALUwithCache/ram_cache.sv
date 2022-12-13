@@ -1,10 +1,11 @@
-//Combined ram cache module
+//Combined ram cache module - specific for 16 bit address width RAM
 //Check whether cache is also byte addressed (Don't think it is)
+//RAM cache works, just need to implement full functionality of normal RAM and use good test program
 module ram_cache # (
-    parameter RAM_ADDRESS_WIDTH = 32,
+    parameter RAM_ADDRESS_WIDTH = 16, //should be 32
     DATA_WIDTH = 32,
     BYTE_WIDTH = 8,
-    CACHE_DATA_WIDTH = 57,
+    CACHE_DATA_WIDTH = 41, //32 bit for data, 8 bit for tag, 1 bit for flag = 41
     CACHE_ADDRESS_WIDTH = 6
 )(
 
@@ -18,30 +19,46 @@ module ram_cache # (
     input logic [1:0] dataType, //input signal where 00: word, 01: byte, 10: half word
 
     //Output:
-    output logic [DATA_WIDTH-1:0] RD //DataOut
+    output logic [DATA_WIDTH-1:0] RD, //DataOut
+    output logic [DATA_WIDTH-1:0] RAM_array_value,
+    output logic [CACHE_DATA_WIDTH-1:0] cache_array_value
 );
-
-//Initializing RAM and RAM variables:
-logic [BYTE_WIDTH-1:0] ram_array [2**RAM_ADDRESS_WIDTH-1:0]; //each mem location of array stores a byte-width so 8 bits
 
 //Initializing Cache and cache variables:
 logic [CACHE_DATA_WIDTH-1:0] cache_array [2**CACHE_ADDRESS_WIDTH-1:0];
 
-//Cache to refer to:
-logic [CACHE_ADDRESS_WIDTH-1:0] cache_address;
+initial begin
+    $display("Loading cache.");
+    $readmemh("cachedata.mem", cache_array); //64 mem locations of 41 bits each value
+    $display("Cache successfully loaded.");
+end;
 
+//Initializing RAM and RAM variables:
+//logic [BYTE_WIDTH-1:0] ram_array [2**RAM_ADDRESS_WIDTH-1:0]; //each mem location of array stores a byte-width so 8 bits
+logic [BYTE_WIDTH-1:0] ram_array [2**RAM_ADDRESS_WIDTH-1:0];
+
+initial begin
+    $display("Loading ram.");
+    $readmemh("sine.mem", ram_array); //65536 values so 16 bits address width
+    $display("Ram successfully loaded.");
+end;
+
+//Cache to refer to:
+//logic [CACHE_ADDRESS_WIDTH-1:0] cache_address;
+//assign cache_address = A[7:2];
 //assign cache_address = A[(1+CACHE_ADDRESS_WIDTH):2]; //so 6 bit for cach e address in this case
 
 //Word at cache: //Check if allowed to do values chronologically
 logic [CACHE_DATA_WIDTH-1:0] cache_data;
+assign cache_data = cache_array[A[7:2]];
+
+logic flagMiss; //1-Miss, 0-Hit
 //assign cache_data = cache_array[cache_address]; //this is entire 57 bit data stored in cache
 
 //Checking if writing to RAM instruction: No need to write to Cache if writing to RAM
-always_ff @(posedge clk) begin
-    cache_address <= A[(1+CACHE_ADDRESS_WIDTH):2];
-    cache_data <= cache_array[cache_address];
+always_ff @(posedge clk) begin 
+    //synchronous write
     if (WE) begin
-        //synchronous write
             case (dataType)
                 2'b00: begin //write word to mem location given by A
                     ram_array[A] <= WD[7:0]; //LS Byte
@@ -58,35 +75,39 @@ always_ff @(posedge clk) begin
                 end
                 default: $display("No dataType selected. Please choose word, byte or halfword.");
             endcase
-        end
-
-    else begin 
-        if(cache_data[56]) begin //so if V is 1
-            if(cache_data[55:32]==A[31:8]) begin //compare 24 bit tag in cache to A[31:5] to see if cache contains correct mem location value
-                //if true then output data in cache_data
-                RD <= cache_data[31:0]; //output immediately that DataOut is 31 bit data stored in cache, as its read its async
-            end
-            else begin //so if tag is wrong, but V bit is still 1 so no need to reassign that, but still must retrieve data from RAM and output and store this value in cache
-                //Read from RAM:
-                RD <= {ram_array[A+3], ram_array[A+2], ram_array[A+1], ram_array[A]};
- 
-                cache_data[55:32] <= A[31:8]; //assigning correct tag
-                cache_data[31:0] <= RD; //asigning correct data value
-                
-            end
-        end
-        else begin //if V is 0 then must fill cache with values and retrieve data from RAM, V bit is 0 at powerup
-            //Read from RAM:
-            RD <= {ram_array[A+3], ram_array[A+2], ram_array[A+1], ram_array[A]};
-
-            //always_ff @(posedge clk) begin 
-                cache_data[55:32] <= A[31:8]; //writing tag
-                cache_data[31:0] <= RD; //writing data value
-                cache_data[56] <= 1; //writing v bit
-            //end
-        end
     end
 end
+
+always_comb begin //new instruction comes with new clk cycle, so flagMiss can still be used at clk posedge for current instruction
+    if (!WE) begin //So read instruction so cache is used
+        //1. Refer to cache to see if data at A is in cache:
+        //Combinational/immediate read from cache:
+        if(cache_data[40]) begin //so if V is 1
+            if(cache_data[39:32]==A[15:8]) begin //compare 24 bit tag in cache to A[31:5] to see if cache contains correct mem location value
+                //if true then output data in cache_data
+                assign RD = cache_data[31:0]; //output immediately that DataOut is 31 bit data stored in cache, as its read its async
+                assign flagMiss = 1'b0;
+            end
+            else begin
+                assign RD = {ram_array[A+3], ram_array[A+2], ram_array[A+1], ram_array[A]};
+                assign flagMiss = 1'b1;
+            end
+        end
+        else begin //in any other case: wrong tag or V is 0, RD is assigned to RAM value
+            assign RD = {ram_array[A+3], ram_array[A+2], ram_array[A+1], ram_array[A]};
+            assign flagMiss = 1'b1;
+        end
+    end
+end //these flagMiss values are used immediately when clock is posedge 
+
+always_ff @(posedge clk) begin
+    if (flagMiss) begin //combinational read from ram_array for ram_array[A+3],...,ram_array[A], so done immediately when clk posedge
+      cache_array[A[7:2]] <= {1'b1, A[15:8], ram_array[A+3], ram_array[A+2], ram_array[A+1], ram_array[A]};  
+    end
+end
+
+assign RAM_array_value = ram_array[4];
+assign cache_array_value = cache_array[1];
 
 endmodule
 

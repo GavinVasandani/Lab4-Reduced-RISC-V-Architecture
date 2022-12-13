@@ -2,7 +2,11 @@ module topLevelALU# (
     parameter 
               // NumberOfReg = 32,
               Address_Width_RegFile = 5, //32 registers so address size is 5 bits
-              Data_Width = 32
+              Data_Width = 32,
+              CACHE_DATA_WIDTH = 41,
+              BYTE_WIDTH = 8,
+              RAM_ADDRESS_WIDTH = 16,
+              CACHE_ADDRESS_WIDTH = 6
               //ALU_Instruction_Width = 10;
 ) (
 //Interface Signals
@@ -37,7 +41,10 @@ module topLevelALU# (
 
     //Outputs
     output logic eq,
-    output logic [Data_Width-1:0] a0
+    output logic [Data_Width-1:0] a0,
+    output logic [Data_Width-1:0] RAM_array_value,
+    output logic [CACHE_DATA_WIDTH-1:0] cache_array_value
+    //output logic [Data_Width-1:0] Mux_RAM_array_value
 );
 
 //Wires
@@ -50,6 +57,11 @@ module topLevelALU# (
     logic [Data_Width-1:0] ReadData; //RAM output
     logic [Data_Width-1:0] ResultSrcOutput; //ResultSrcMux output 
     logic [Data_Width-1:0] regWrite; //data to write to register
+    //logic [BYTE_WIDTH-1:0] ram_array_wire_outer [2**RAM_ADDRESS_WIDTH-1:0];
+    //logic [BYTE_WIDTH-1:0] ram_array_wire_inner [2**RAM_ADDRESS_WIDTH-1:0];
+    //logic [CACHE_DATA_WIDTH-1:0] cache_array_wire_outer [2**CACHE_ADDRESS_WIDTH-1:0];
+    //logic [CACHE_DATA_WIDTH-1:0] cache_array_wire_inner [2**CACHE_ADDRESS_WIDTH-1:0];
+    //logic flagMiss_wire;
 
     //assign flagMiss = flagInitial; //initially flagMiss = flagInitial which = 0
 
@@ -90,7 +102,9 @@ ram_cache ramCache1 (
     .WE(MemWrite),
     .WD(rd2),
     .dataType(dataType),
-    .RD(ReadData)
+    .RD(ReadData),
+    .RAM_array_value(RAM_array_value),
+    .cache_array_value(cache_array_value)
 );
 
 /*
@@ -125,11 +139,36 @@ if (flagMiss) begin //if flagMiss is 1 so must fetch value from main mem:
 end
 */
 
+/*
+ram_cache_read ramCacheRead1 (
+    .clk(clk),
+    .A(ALUout),
+    .ram_array(ram_array_wire_outer),
+    .cache_array(cache_array_wire_outer),
+    .RD(ReadData),
+    .ram_arrayOut(ram_array_wire_inner),
+    .cache_arrayOut(cache_array_wire_inner),
+    .flagMiss(flagMiss_wire)
+);
+
+ram_cache_write ramCacheWrite1 (
+    .clk(clk),
+    .A(ALUout),
+    .ram_array(ram_array_wire_inner),
+    .cache_array(cache_array_wire_inner),
+    .flagMiss(flagMiss_wire),
+    .ram_arrayOut(ram_array_wire_outer),
+    .cache_arrayOut(cache_array_wire_outer)
+);
+*/
+
 resultSrcMux resultSrcMux1 (
     .ALUResult(ALUout),
     .ReadData(ReadData),
     .SrcSel(SrcSel), //ResultSrc select
+    //.ram_array(ram_array_wire),
     .OutputSrcMux(ResultSrcOutput) //previously Result
+    //.Mux_RAM_array_output(Mux_RAM_array_value)
 );
 
 resultPCMux resultPCMux1 (
